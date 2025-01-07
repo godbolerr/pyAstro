@@ -57,12 +57,12 @@ kuruKshetra = wgs84.latlon(29.9695 * N, 76.8783 * E)
 kuruKshetraObserver = eph['Earth'] + kuruKshetra
 
 
-ravi, chandra, earth, mangal,budh,shukra,shani = eph['sun'], eph['moon'], eph['earth'], eph['mars'],eph['mercury'],eph['venus'],eph['SATURN BARYCENTER']
+ravi, chandra, earth, mangal,budh,shukra,shani,guru = eph['sun'], eph['moon'], eph['earth'], eph['mars'],eph['mercury'],eph['venus'],eph['SATURN BARYCENTER'],eph['JUPITER BARYCENTER']
 
 
-yogtaradic = { "Ashwini" : 8832 ,
-               "Magha" : 49669 ,
+yogtaradic = {  "Magha" : 49669 ,
                "Jeshtha" : 80112 ,
+                "Vishakha" : 72622 ,
                "Anuradha" : 78265 ,
                "Rohini" : 21421 
              }  
@@ -71,6 +71,8 @@ graha = { "ravi" : ravi ,
                "chandra" : chandra ,
                "mangal" : mangal ,
                "budh" : budh ,
+               "guru" : guru ,
+               
                "shukra" : shukra ,
                'Shani' : shani
              }  
@@ -81,23 +83,39 @@ graha = { "ravi" : ravi ,
 with load.open(hipparcos.URL) as f:
     df = hipparcos.load_dataframe(f) 
     
-star = 'Rohini'
-planetName = 'Shani'
+# Magha, Jeshtha, Vishakha, Anuradha, Rohini
+
+stars=['Magha','Jeshtha','Vishakha','Anuradha','Rohini']
+planets=['ravi','chandra','mangal','budh','shukra','shani','guru']
+sepAngle = 2
+
+for star in stars:
+    for planetName in planets:
     
-hip = yogtaradic[star]
 
-planet = graha[planetName]
-
-t = ts.utc(-3000,12, 12)
-
-for counter in range(0, 365*100, 1):
-    barnards_star = Star.from_dataframe(df.loc[hip])
-    position_star = kuruKshetraObserver.at(t).observe(barnards_star)
-    position_planet = kuruKshetraObserver.at(t).observe(planet)
-    sepDegrees = position_star.separation_from(position_planet).degrees
-    if ( sepDegrees < 4 ) :
-        year, month, day, hour, minute, second = t.tai_calendar()
-        print(star , hip , planetName, day,month,year , sepDegrees , sep = " , ")
-
-    t = t + dt.timedelta(days=1)
-
+        hip = yogtaradic[star]
+        
+        planet = graha[planetName]
+        totalYears = 2000
+        
+        csvFile = open(f"MahaAna_{ planetName }_{star}_{sepAngle}.csv", "w") 
+        
+        print ("Timing is midnight UTC. Add +530 for IST. Year Range : 3000 BC to 1000 BC, HIPCode for star : HIP", hip, file=csvFile)
+        
+        print ("planetName,starName,day,month,year,Seperation Angle",file=csvFile)
+        
+        
+        t = ts.utc(-3000,12, 12)
+        count=0
+        for counter in range(0, 365*totalYears, 1):
+            barnards_star = Star.from_dataframe(df.loc[hip])
+            position_star = kuruKshetraObserver.at(t).observe(barnards_star)
+            position_planet = kuruKshetraObserver.at(t).observe(planet)
+            sepDegrees = position_star.separation_from(position_planet).degrees
+            if ( sepDegrees < sepAngle ) :
+                year, month, day, hour, minute, second = t.tai_calendar()
+                print(planetName,star,day,month,year,sep=" : ")
+                print(planetName, star ,  day,month,year , sepDegrees , sep = " , ", file=csvFile)
+        
+            t = t + dt.timedelta(days=1)
+    
