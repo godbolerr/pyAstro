@@ -10,6 +10,7 @@ import datetime as dt
 from skyfield.api import Star, load
 from skyfield.data import hipparcos
 import datetime as dt
+from ntpath import sep
 
 
 
@@ -56,32 +57,47 @@ kuruKshetra = wgs84.latlon(29.9695 * N, 76.8783 * E)
 kuruKshetraObserver = eph['Earth'] + kuruKshetra
 
 
-ravi, chandra, earth, mangal= eph['sun'], eph['moon'], eph['earth'], eph['mars']
+ravi, chandra, earth, mangal,budh,shukra,shani = eph['sun'], eph['moon'], eph['earth'], eph['mars'],eph['mercury'],eph['venus'],eph['SATURN BARYCENTER']
 
 
-yogtaradic = { "Ashwini" : "HIP8832" ,
-               "Magha" : "HIP49669" ,
-               "Jeshtha" : "HIP80112" ,
-               "Anuradha" : "HIP78265" ,
-               "Rohini" : "HIP21421" 
+yogtaradic = { "Ashwini" : 8832 ,
+               "Magha" : 49669 ,
+               "Jeshtha" : 80112 ,
+               "Anuradha" : 78265 ,
+               "Rohini" : 21421 
              }  
+
+graha = { "ravi" : ravi ,
+               "chandra" : chandra ,
+               "mangal" : mangal ,
+               "budh" : budh ,
+               "shukra" : shukra ,
+               'Shani' : shani
+             }  
+
+
 
 
 with load.open(hipparcos.URL) as f:
     df = hipparcos.load_dataframe(f) 
     
-hip = 49669
+star = 'Rohini'
+planetName = 'Shani'
+    
+hip = yogtaradic[star]
 
-t = ts.utc(-100,1, 1)
+planet = graha[planetName]
+
+t = ts.utc(-3000,12, 12)
 
 for counter in range(0, 365*100, 1):
     barnards_star = Star.from_dataframe(df.loc[hip])
     position_star = kuruKshetraObserver.at(t).observe(barnards_star)
-    position_planet = kuruKshetraObserver.at(t).observe(mangal)
+    position_planet = kuruKshetraObserver.at(t).observe(planet)
     sepDegrees = position_star.separation_from(position_planet).degrees
-    if ( sepDegrees < 1 ) :
+    if ( sepDegrees < 4 ) :
         year, month, day, hour, minute, second = t.tai_calendar()
-        print(day,month,year, "   " , sepDegrees)
+        print(star , hip , planetName, day,month,year , sepDegrees , sep = " , ")
 
     t = t + dt.timedelta(days=1)
 
