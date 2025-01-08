@@ -70,6 +70,9 @@ nakshatras = {  "magha" : 49669 ,
                "rohini" : 21421 
              }  
 
+
+
+
 grahas = {    
     
     'shani' : shani,
@@ -82,19 +85,19 @@ grahas = {
     }  
 
 
-star ="magha"
+
 
 with load.open(hipparcos.URL) as f:
     df = hipparcos.load_dataframe(f) 
     
-planetName = "shani"
-hip = nakshatras[star]
-        
-planet = grahas[planetName]
+
+
 totalYears = 1000
-    
-stars=['magha','jeshtha','vishaka','anuradha','rohini']
-planets=['shani','guru','mangal','ravi','budh','shukra','chandra']
+ #'',   
+#stars=['jeshtha','vishaka','anuradha','rohini']
+stars=['magha']
+
+planets=['ravi','budh','shukra','chandra']
 sepAngle = 6
 
 
