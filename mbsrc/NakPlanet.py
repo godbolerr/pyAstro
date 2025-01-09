@@ -9,12 +9,13 @@ class NakPlanetInfo:
     classdocs
     '''
 
-    def __init__(self, year, month,day,tt,angle):
+    def __init__(self, tt,recId, year, month,day,angle):
         '''
         Constructor
         '''
+        self.tt = tt
+        self.recId = recId
         self.year = year
         self.month = month
-        self.day = day
-        self.tt = tt
+        self.day = day      
         self.angle = angle

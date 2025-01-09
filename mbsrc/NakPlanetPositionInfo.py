@@ -61,77 +61,60 @@ kuruKshetraObserver = eph['Earth'] + kuruKshetra
 
 ravi, chandra, earth, mangal,budh,shukra,shani,guru = eph['sun'], eph['moon'], eph['earth'], eph['mars'],eph['mercury'],eph['venus'],eph['SATURN BARYCENTER'],eph['JUPITER BARYCENTER']
 
-sepAngles = [1,2,3,4,5]
-
-nakshatras = {  "magha" : 49669 ,
-               "jeshtha" : 80112 ,
-                "vishaka" : 72622 ,
-               "anuradha" : 78265 ,
-               "rohini" : 21421 
-             }  
-
-
-
-
-grahas = {    
-    
-    'shani' : shani,
-    "guru" : guru ,
-    "mangal" : mangal ,
-    "ravi" : ravi ,
-    "shukra" : shukra ,
-    "budh" : budh ,
-    "chandra" : chandra 
-    }  
-
-
-
+df_nakshatra = pd.read_csv("NakshatraYogtara.csv", header=0) 
 
 with load.open(hipparcos.URL) as f:
     df = hipparcos.load_dataframe(f) 
+
+
+grahas = [  ("ravi",ravi,1) ,("chandra",chandra,2),("budh",budh,3) , ("shukra",shukra,4), ("mangal",mangal,5),("guru",guru,6), ("shani",shani,7) ] 
+
+
+starSeq = 10
+star = df_nakshatra.loc[starSeq]['Name']
+hip = df_nakshatra.loc[starSeq]['HIP']
+totalYears = 3000
+sepAngle = 6
+t = ts.utc(-2997,1, 1)
+
+print("Processing ", star, " with hip code " , hip)
+
+for graha in grahas :
+
+    recordIdentifier = str(graha[2]) + "" + str(starSeq)
+    
+    grahaName = graha[0]
     
 
 
-totalYears = 1000
- #'',   
-#stars=['jeshtha','vishaka','anuradha','rohini']
-stars=['magha']
-
-planets=['ravi','budh','shukra','chandra']
-sepAngle = 6
-
-
-for star in stars:
-    for planetName in planets:
-
-        hip = nakshatras[star]
+#    or grahaName == 'shukra'  or grahaName == 'mangal'  grahaName == 'ravi' or grahaName == 'chandra' or or grahaName == 'shukra'
+#    grahaName == 'ravi' or
+    if (  grahaName == 'budh' or grahaName == 'guru' ) :
+    
+        csvFileName = str(graha[0])  + str(star) + "_" + str(totalYears) + ".csv"
         
-        planet = grahas[planetName]
-        totalYears = 1000
-        t = ts.utc(-2999,1, 1)
-        count=0
+        print("Graha Name " , graha[0], "with sequence " , graha[2], " and identifier " + recordIdentifier , " ",  csvFileName )
         
         nakPlanetInfos = []
-
-        csvFileName = str(planetName) + "_" + str(star) + "_" + str(totalYears) + ".csv"
-        
-        print(csvFileName)
-        
         for counter in range(0, 365*totalYears, 1):
-            barnards_star = Star.from_dataframe(df.loc[hip])
-            position_star = kuruKshetraObserver.at(t).observe(barnards_star)
-            position_planet = kuruKshetraObserver.at(t).observe(planet)
-            sepDegrees = position_star.separation_from(position_planet).degrees
-            year, month, day, hour, minute, second = t.tai_calendar()
-            if ( sepDegrees < sepAngle ) : 
-                nakPlanetInfos.append(NakPlanetInfo(year,month,day,math.trunc(t.tt),math.trunc(sepDegrees)))
-         
-            t = t + dt.timedelta(days=1)
-            
-        dff = pd.DataFrame([vars(s) for s in nakPlanetInfos], columns=['year', 'month','day','tt','angle'])
+             barnards_star = Star.from_dataframe(df.loc[hip])
+             position_star = kuruKshetraObserver.at(t).observe(barnards_star)
+             position_planet = kuruKshetraObserver.at(t).observe(graha[1])
+             sepDegrees = position_star.separation_from(position_planet).degrees
+             year, month, day, hour, minute, second = t.tai_calendar()
+             thisId = str(graha[2]) + "" + str(starSeq)
+             if ( sepDegrees < sepAngle ) : 
+                 nakPlanetInfos.append(NakPlanetInfo(math.trunc(t.tt), thisId ,year,month,day,math.trunc(sepDegrees)))
+          
+             t = t + dt.timedelta(days=1)
+             
+        dff = pd.DataFrame([vars(s) for s in nakPlanetInfos], columns=['tt','recId','year', 'month','day','angle'])
         
         print(dff)
-        
-        
-        
+         
         dff.to_csv(csvFileName, sep=',' , encoding='utf-8', index=False)
+        
+            
+    
+    
+    
