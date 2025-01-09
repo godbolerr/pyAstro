@@ -11,7 +11,7 @@ from skyfield.api import Star, load
 from skyfield.data import hipparcos
 import datetime as dt
 from ntpath import sep
-
+import NakPlanet
 
 
 ''' 
@@ -74,7 +74,7 @@ graha = { "ravi" : ravi ,
                "guru" : guru ,
                
                "shukra" : shukra ,
-               'Shani' : shani
+               'shani' : shani
              }  
 
 
@@ -85,9 +85,10 @@ with load.open(hipparcos.URL) as f:
     
 # Magha, Jeshtha, Vishakha, Anuradha, Rohini
 
-stars=['Magha','Jeshtha','Vishakha','Anuradha','Rohini']
+stars=['Jeshtha','Vishakha','Anuradha','Rohini']
 planets=['ravi','chandra','mangal','budh','shukra','shani','guru']
-sepAngle = 2
+sepAngle = 6
+
 
 for star in stars:
     for planetName in planets:
