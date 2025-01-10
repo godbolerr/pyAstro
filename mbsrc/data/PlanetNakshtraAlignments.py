@@ -67,6 +67,7 @@ raviMagha = "raviMagha";
 chandraMagha = "chandraMagha";
 budhMagha = "budhMagha";
 shukraMagha = "shukraMagha";
+shukraJeshtha = "shukraJeshtha";
 mangalMagha = "mangalMagha";
 guruMagha = "guruMagha";
 shaniMagha = "shaniMagha";
@@ -80,16 +81,18 @@ df_raviMagha = pd.read_csv(raviMagha + fileExtn)
 df_chandraMagha = pd.read_csv(chandraMagha + fileExtn)
 df_budhMagha = pd.read_csv(budhMagha + fileExtn)
 df_shukraMagha = pd.read_csv(shukraMagha + fileExtn)
+df_shukraJeshtha = pd.read_csv(shukraJeshtha + fileExtn)
+
 df_mangalMagha = pd.read_csv(mangalMagha + fileExtn)
 df_guruMagha = pd.read_csv(guruMagha + fileExtn)
 df_shaniMagha = pd.read_csv(shaniMagha + fileExtn)
 df_shaniRohini = pd.read_csv(shaniRohini + fileExtn)
-#df_mangalJeshta = pd.read_csv(mangalJeshtha + fileExtn)
+df_mangalJeshta = pd.read_csv(mangalJeshtha + fileExtn)
 df_mangalAnuradha = pd.read_csv(mangalAnuradha + fileExtn)
 
 
-df_list = [df_raviMagha, df_shaniRohini,df_mangalAnuradha]
-resultFile = "ravi_magha_shani_rohini_mangalJeshtha.csv"
+df_list = [df_mangalMagha, df_budhMagha,df_shukraJeshtha]
+resultFile = "budh_mangal_magha_mangalJeshtha.csv"
 df = pd.concat(dataframe_intersection(df_list,by='tt'))
 print(df)
 df.to_csv(resultFile, sep=',' , encoding='utf-8', index=False)
