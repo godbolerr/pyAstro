@@ -70,7 +70,7 @@ with load.open(hipparcos.URL) as f:
 grahas = [  ("ravi",ravi,1) ,("chandra",chandra,2),("budh",budh,3) , ("shukra",shukra,4), ("mangal",mangal,5),("guru",guru,6), ("shani",shani,7) ] 
 
 
-starSeq = 10
+starSeq = 18
 star = df_nakshatra.loc[starSeq]['Name']
 hip = df_nakshatra.loc[starSeq]['HIP']
 totalYears = 3000
@@ -88,8 +88,8 @@ for graha in grahas :
 
 
 #    or grahaName == 'shukra'  or grahaName == 'mangal'  grahaName == 'ravi' or grahaName == 'chandra' or or grahaName == 'shukra'
-#    grahaName == 'ravi' or
-    if (  grahaName == 'budh' or grahaName == 'guru' ) :
+#    grahaName == 'ravi' or or grahaName == 'guru'
+    if (  grahaName == 'mangal'  ) :
     
         csvFileName = str(graha[0])  + str(star) + "_" + str(totalYears) + ".csv"
         
