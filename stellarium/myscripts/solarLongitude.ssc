@@ -1,0 +1,14 @@
+// Find solar longitude for the whole year for SUN
+
+core.setDate("2023-03-19T00:00:00", "local");
+
+for (i=0; i<370; i++)
+{
+    var week = i + 1;
+    core.setDate("+1 day");
+    var info = core.getObjectInfo("Sun");
+    var slongitude = info.elong;
+	var slatitude = info.elat;
+    core.output( core.getDate("local") + ","  + slongitude + "," + slatitude );
+
+}

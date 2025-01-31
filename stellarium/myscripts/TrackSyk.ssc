@@ -1,0 +1,196 @@
+// Debugging sky stracking problem
+
+//===============================================================================
+// Name: waituntil alternative to core.waitfor function which does not work any more
+// License: Public Domain
+// Author: Khalid AlAjaji with accuracy mods by Ian Hargraves
+// Description: example
+//===============================================================================
+function WaitUntil(jd)
+{
+var minFPS=0.0;
+
+tr = core.getTimeRate(); //get time rate
+
+if (tr!=0)
+{ //only wait if tr <>0
+//core.debug("tr not equal to 0");
+minFPS = core.getMinFps();
+
+//core.debug(minFPS);
+//speed up the core to minimise timing inaccuracies
+core.setMinFps(1000);
+
+var dfTimeNow = 0;
+
+if (tr > 0)
+   {
+   do
+      {
+      dfTimeNow = core.getJDay();
+      }
+   while( dfTimeNow < jd); // let time go by
+   }
+else
+   {
+   do
+      {
+      dfTimeNow = core.getJDay();
+      }
+   while( dfTimeNow > jd); // let time go by
+   }
+
+//restore original core speed to save processor power
+core.setMinFps(minFPS);
+} //only run the function if tr <>0
+} // end of WaitUntil()
+//===============================================================================
+
+//===============================================================================
+// Name: Display constellation function
+// License: copyright Ian Hargraves 2012
+// Author: Ian Hargraves
+// Description: Displays named constellation art and zooms to it then turns it off afterwards
+//
+// ConstNamestr = name of constellation to display, ConstDescstr = additional description string
+// ZoomLvl = numeric level to zoom in to for each constellation
+// ZoomOutLvl = numeric level to zoom back out to
+//===============================================================================
+
+function DispConstellation(ConstNamestr,ConstDescstr,ZoomInLvl,ZoomOutLvl)
+{
+Strid = LabelMgr.labelScreen("The constellation of " + ConstNamestr + " " + ConstDescstr, ScrnWide*0.025,ScrnHigh*0.95, false, 26);
+
+LabelMgr.setLabelShow(Strid, true);
+
+core.selectObjectByName(ConstNamestr, false);
+
+ConstellationMgr.setFlagIsolateSelected(true);
+ConstellationMgr.setFlagLines(true);
+ConstellationMgr.setFlagArt(true);
+
+StelMovementMgr.autoZoomIn(5);
+core.wait(1);
+
+StelMovementMgr.zoomTo(ZoomInLvl,moveDuration=5);
+core.wait(5);
+StelMovementMgr.autoZoomOut(5);
+core.wait(1);
+StelMovementMgr.zoomTo(ZoomOutLvl,moveDuration=5);
+core.wait(7);
+
+LabelMgr.setLabelShow(Strid, false);
+
+// turn off constellation
+ConstellationMgr.setFlagIsolateSelected(false);
+ConstellationMgr.setFlagArt(false);
+ConstellationMgr.setFlagLines(true);
+
+// need to select Pluto to force the deselection of all the other previously selected objects
+core.selectObjectByName("HP44504"); // this is just a star which is NOT part of a constellation line
+
+//core.selectObjectByName("Pluto", false);
+core.selectObjectByName("");
+
+}//end DispConstellation()
+//===============================================================================
+
+//===============================================================================
+// INITIALISATION SEQUENCE (Location, mount and zoom setup)
+//===============================================================================
+function InitObserver(InitTime)
+{
+core.setJDay(InitTime);//Set display to reasonable time of night
+core.wait(1);
+// set up SGL event location
+core.debug("setLocation");
+core.setObserverLocation(1.1,51.25,0,duration=1);
+
+// make sure mount is in alt-az mode
+core.setMountMode("azimuthal");
+
+// dont track the objects
+StelMovementMgr.setFlagTracking(false);
+core.selectObjectByName("", false);
+
+}//end InitObserver()
+
+//===============================================================================
+// SGL Spin Procession of the stars (Initilase due south at sunset)
+//===============================================================================
+function SpinProcession(ProcessStartTime,ProcessEndTime)
+{
+StelMovementMgr.setFlagTracking(false);
+LandscapeMgr.setFlagAtmosphere(true);
+core.setJDay(ProcessStartTime); // Set display to reasonable time of night
+core.wait(1);
+
+// point 40 degrees alt due south to start with on first night
+core.debug("Move to 40, 180")
+core.moveToAltAzi(40,180,duration=3);
+core.debug("move to 40,180");
+core.wait(5);
+StelMovementMgr.zoomTo(95,moveDuration=5);
+core.wait(2);
+
+core.setTimeRate(1000);
+WaitUntil(ProcessEndTime);
+core.setTimeRate(0);
+core.setJDay(ProcessEndTime); // corrects any overshoot
+
+LabelMgr.setLabelShow(SpinProcessionTitleid, false);
+core.wait(1);
+LandscapeMgr.setFlagAtmosphere(false);
+
+}//end SpinProcession()
+
+//========================================================================================
+
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+// Main Program sequence
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+
+//set SGLSunsetTime
+core.setDate("2013-01-08T16:00:00","utc");
+SGLSunsetTime = core.getJDay();
+
+core.setDate("2013-01-08T20:00:00","utc");
+SGLObserveTime = core.getJDay();
+
+//set SGLSunriseTime
+core.setDate("2013-01-09T08:00:00","utc");
+SGLSunriseTime = core.getJDay();
+
+id = LabelMgr.deleteAllLabels();
+ScrnHigh=core.getScreenHeight();
+ScrnWide=core.getScreenWidth();
+
+InitObserver(SGLObserveTime);
+GuideTitleid=LabelMgr.labelScreen("Debugging Sky Tracking", ScrnWide*0.2,ScrnHigh*0.05, false, 40);
+SpinProcessionTitleid = LabelMgr.labelScreen("Procession of the stars from dusk to dawn tonight.", ScrnWide*0.2,ScrnHigh*0.05, false, 40);
+
+ConstellationMgr.setFlagLines(true);
+// Initialise display start time to sunset
+core.setJDay(SGLObserveTime);
+
+LabelMgr.setLabelShow(GuideTitleid, true);
+core.wait(3);
+LabelMgr.setLabelShow(GuideTitleid,false);
+
+SpinProcession(SGLSunsetTime,SGLObserveTime); //change to SGLSunriseTime when debugged
+
+// Debuggng call to dispconstellation
+DispConstellation("Orion","the hunter containing M42 the Great Orion Nebula",45,95);
+DispConstellation("Cetus","the whale, tonight without the variable star 'Mira the wonderful'",60,95);
+
+core.setSkyCulture("inuit");
+core.setSkyCulture("western");
+core.clear("starchart");
+core.clear("natural");
+ConstellationMgr.setFlagLines(true);
+
+SpinProcession(SGLSunsetTime,SGLObserveTime); //change to SGLSunriseTime when debugged
+
+core.setMinFps(10)

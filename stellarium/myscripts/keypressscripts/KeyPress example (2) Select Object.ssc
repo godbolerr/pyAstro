@@ -1,0 +1,86 @@
+// Author: Qam1
+// Name: Select Object, Press B Key - Keypress Example 2 
+// License: Public Domain
+// Description: Waits until you Select and Object and Press the B key
+// Version: 1.0
+// 
+// Made on Stellarium 0.21.1, should work with 1.0
+
+
+LabelMgr.deleteAllLabels();
+q = 0
+
+while (q == 0)
+{
+
+
+txt1 = LabelMgr.labelScreen("Select an Object and then Press B to begin", 400, 100, false, 40, "#FF7777");
+LabelMgr.setLabelShow(txt1, true);
+
+
+// the keypress
+
+
+ob = ConstellationMgr.getFlagBoundaries(); 
+
+
+kp = 0;
+
+while (kp == 0)
+{
+
+cb = ConstellationMgr.getFlagBoundaries();
+core.wait(0.05);
+
+if (cb != ob)
+{
+kp = 1
+}
+
+
+}
+
+
+ConstellationMgr.setFlagBoundaries(ob); 
+
+// End Keypress
+
+
+
+LabelMgr.deleteAllLabels();
+
+map=core.getSelectedObjectInfo();
+
+name = map["localized-name"];
+
+if (name == "")
+{
+name = "a small star nobody bothered to name"
+}
+
+
+
+txt1 = LabelMgr.labelScreen("You selected " + name, 400, 200, false, 40, "#FF7777");
+LabelMgr.setLabelShow(txt1, true);
+
+
+core.wait(5);
+
+core.debug(name);
+
+while (map == name)
+{
+map=core.getSelectedObjectInfo();
+}
+
+
+
+LabelMgr.deleteAllLabels();
+
+
+}
+
+
+core.Stopscript();
+
+

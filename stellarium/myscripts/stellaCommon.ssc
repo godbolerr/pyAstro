@@ -1,0 +1,162 @@
+// Common include file for stellarium
+
+var solarPlanets = new Array("Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus","Neptune"); 
+
+
+
+var az = 70
+var alt = 25
+var lat = 18.5204
+var longi =  73.8567
+var title = "Look at all the Stars!"
+var date = "2022-12-25T18:02:22"
+var timespan = 2.0
+var fov = 90
+var dt=30
+var JD = core.getJDay();
+var color = "#ffffff";
+var location = core.getObserverLocation();
+
+
+function goToPune(){
+
+	core.setObserverLocation(
+		73.8567, // core.dmsToRad( 8, 36, 25.85 ), // longitude
+		18.5204, // core.dmsToRad(47, 32, 21.48 ), // latitude
+		0,                       // Altitude
+		6,                       // Time to travel
+	   "Pune",                       // or "Irchelturm",
+	   "Earth"                   // This parameter seems necessary
+	);
+}
+
+function goToNYC(){
+
+	core.setObserverLocation(
+		-74.8567, // core.dmsToRad( 8, 36, 25.85 ), // longitude
+		40.5204, // core.dmsToRad(47, 32, 21.48 ), // latitude
+		0,                       // Altitude
+		6,                       // Time to travel
+	   "Pune",                       // or "Irchelturm",
+	   "Earth"                   // This parameter seems necessary
+	);
+}
+
+
+function hideLandscape() {
+  LandscapeMgr.setFlagAtmosphere(false);
+  LandscapeMgr.setFlagLandscape(false);
+  LandscapeMgr.setFlagFog(false);
+  LandscapeMgr.setFlagCardinalPoints(false);
+}
+
+
+
+function faceEast10(){
+
+
+}
+
+function faceWest10(){
+
+}
+
+function faceSouth10(){
+
+}
+
+function faceNorth10(){
+
+}
+
+
+function initStellarium()
+{
+	core.wait(0.5);
+	LabelMgr.deleteAllLabels();
+	MarkerMgr.deleteAllMarkers();
+	core.wait(0.5);
+	core.goHome();
+	var color = "#ffffff";
+	core.setGuiVisible(false);
+	core.setTimeRate(1);
+	core.clear("natural");
+	LandscapeMgr.setFlagCardinalPoints(true);
+}
+
+function displayDateTime(){
+
+timeLabel = LabelMgr.labelScreen("", 500, 10, true, 15, "#FFFFFF");
+while(true) {
+LabelMgr.setLabelText(timeLabel,core.getDate());
+core.wait(1);
+}
+
+}
+
+function tr(str)
+{
+	return core.translate(str);
+}
+
+
+
+
+// Unselect object
+
+function unselect(){
+	core.selectObjectByName("");
+}
+
+function resetStellarium()
+{
+	core.wait(0.5);
+	LabelMgr.deleteAllLabels();
+	MarkerMgr.deleteAllMarkers();
+	core.wait(0.5);
+	core.goHome();
+	var color = "#ffffff";
+	core.setGuiVisible(true);
+	core.setTimeRate(1);
+	LandscapeMgr.setFlagCardinalPoints(false);
+}
+
+// text display helper functions by Peter Hickey
+function blockText(textArray)
+{
+	var fontSize = 50;
+	var lineSep = fontSize * 1.5;
+	y = 100 + (lineSep*textArray.length);
+	ids = new Array();
+	for(i=0; i<textArray.length; i++)
+	{
+		ids[i] = LabelMgr.labelScreen(textArray[i], 30, y, false, fontSize, "#ff0000");
+		y = y - lineSep;
+	}
+
+	for(i=0; i<ids.length; i++)
+	{
+		LabelMgr.setLabelShow(ids[i], true);
+		core.wait(0.15);
+	}
+	return ids;
+}
+
+function clearLabels(ids)
+{
+	for(i=0; i<ids.length; i++)
+	{
+		LabelMgr.setLabelShow(ids[i], false);
+		core.wait(0.15);
+	}
+	core.wait(1);
+	for(i=0; i<ids.length; i++)
+	{
+		LabelMgr.deleteLabel(ids[i]);
+	}
+}
+
+
+function debug(str) {
+  core.debug(str);
+}

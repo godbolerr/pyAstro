@@ -1,0 +1,73 @@
+// Name: YogTara of all Nakshatras
+// Author: Ravindra Godbole
+// License: Public Domain
+// Description: This script displays the Yogatara of each Nakshatra.
+//
+include("nakshatras.inc");
+include("common_functions.inc");
+
+
+
+LabelMgr.deleteAllLabels();
+MarkerMgr.deleteAllMarkers();
+CustomObjectMgr.removeCustomObjects ();
+
+ConstellationMgr.setFlagIsolateSelected(false);
+ConstellationMgr.setFlagArt(false);
+ConstellationMgr.setFlagLabels(false);
+ConstellationMgr.setArtIntensity(0.7);
+core.setGuiVisible(false);
+core.wait(0.1);
+GridLinesMgr.setFlagEclipticLine(false);
+core.wait(0.1);
+ConstellationMgr.setFlagBoundaries(false);
+core.wait(0.1);
+GridLinesMgr.setFlagHorizonLine(false);
+core.wait(0.1);
+GridLinesMgr.setFlagEclipticLine(false);
+core.wait(0.1);
+LandscapeMgr.setFlagCardinalPoints(false);
+
+core.wait(0.1);
+ConstellationMgr.setFlagLines (false);
+core.wait(0.1);
+
+core.wait(2);
+
+nextActionLabel("Show Ecliptic Line")
+pause();
+GridLinesMgr.setFlagEclipticLine(true);
+nextActionLabel("Show Horizon Line")
+pause();
+GridLinesMgr.setFlagHorizonLine(true);
+nextActionLabel("Show Cardinal Line")
+pause();
+LandscapeMgr.setFlagCardinalPoints(true);
+
+
+
+nextActionLabel("Show Yogtara")
+pause();
+showYogTara();
+
+
+
+nextActionLabel("Show Flag lines for stars")
+pause();
+ConstellationMgr.setFlagLines (true);
+
+
+
+nextActionLabel("Show Rashi")
+pause();
+addRashiMarkers();
+
+
+nextActionLabel("Show Planets")
+pause();
+showPlanets();
+
+
+pause();
+
+core.setGuiVisible(true);

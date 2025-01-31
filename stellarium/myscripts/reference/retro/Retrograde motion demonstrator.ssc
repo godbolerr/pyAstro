@@ -1,0 +1,1854 @@
+// Author: Qam1
+// Name: Retrograde Motion Demonstrator
+// License: Public Domain
+// Description: Views Retrograde Motion for solar system bodies from Earth (Running from other planets may or may not work right). 
+// Version: 1.0  
+//  
+// Made on Stellarium 12.4
+
+//
+
+
+delay = 4; // seconds to hold printouts 
+
+acc = 1 // Accuracy , 0 = nearest minute, 1 = to the nearest hour, 
+
+
+core.setDeltaTAlgorithm("WithoutCorrection"); 
+
+
+//end = 2816916; // JD year 3000
+end = 38245309; // JD 12/31/99999
+
+
+j = core.getJDay();
+
+SolarSystem.setFlagTrails(false); 
+
+LandscapeMgr.setFlagAtmosphere(false);
+
+LandscapeMgr.setFlagLandscape(false);
+
+StelMovementMgr.zoomTo(40, 1);
+core.wait(1);
+
+spd = .1; 
+
+
+core.selectObjectByName("HIP 66249", pointer = true);
+
+StelMovementMgr.setFlagTracking(true);
+
+core.setDate("2013-12-01T00:00:00");
+core.wait(.1);
+SolarSystem.setFlagTrails(true);
+core.wait(.1); 
+
+
+core.setDate("+15 days"); // too lazy to do a loop
+core.wait(.1);
+core.setDate("+15 days");
+core.wait(.1);
+core.setDate("+15 days");
+core.wait(.1);
+core.setDate("+15 days");
+core.wait(.1);
+core.setDate("+15 days");
+core.wait(.1);
+core.setDate("+15 days");
+core.wait(.1);
+core.setDate("+15 days");
+core.wait(.1);
+core.setDate("+15 days");
+core.wait(.1);
+core.setDate("+15 days");
+core.wait(.1);
+core.setDate("+15 days");
+core.wait(.1);
+core.setDate("+15 days");
+core.wait(.1);
+core.setDate("+15 days");
+core.wait(.1);
+core.setDate("+15 days");
+core.wait(.1);
+core.setDate("+15 days");
+core.wait(.1);
+core.setDate("+15 days");
+core.wait(.1);
+core.setDate("+15 days");
+core.wait(.1);
+
+core.selectObjectByName("Mars", pointer = true);
+
+y = core.getScreenHeight()/768;
+x = core.getScreenWidth()/1024;
+
+
+
+
+txt1 = LabelMgr.labelScreen("Retrograde Motion Demonstrator", 320*x, 20*y, false, 25,"#E13243");
+LabelMgr.setLabelShow(txt1, true);
+
+
+au = 3;
+
+sty = 30;
+
+
+
+txt1 = LabelMgr.labelScreen("Mercury", 750 * x, sty *y, false, 20,"#F9E397");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Venus", 750 * x, (sty+20) *y, false, 20,"#F9E397");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Mars", 750 * x, (sty+40)*y, false, 20,"#F9E397");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Vesta", 750 * x, (sty+60)*y, false, 20,"#F9E397");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Ceres", 750 * x, (sty+80)*y, false, 20, "#F9E397");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Pallas", 750 * x, (sty+100)*y, false, 20, "#F9E397");
+LabelMgr.setLabelShow(txt1, true);
+
+
+txt1 = LabelMgr.labelScreen("Juno", 750 * x, (sty+120)*y, false, 20,"#F9E397");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Jupiter", 750 * x, (sty+140)*y, false, 20, "#F9E397");
+LabelMgr.setLabelShow(txt1, true);
+
+
+txt1 = LabelMgr.labelScreen("Saturn", 750 * x, (sty+160)*y, false, 20, "#F9E397");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Uranus", 750 * x, (sty+180)*y, false, 20,"#F9E397");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Neptune", 750 * x, (sty+200)*y, false, 20, "#F9E397");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Pluto", 750 * x, (sty+220)*y,false, 20, "#F9E397");
+LabelMgr.setLabelShow(txt1, true);
+
+
+txt1 = LabelMgr.labelScreen("Quit", 750 * x, (sty+240)*y, false, 20, "#F9E397");
+LabelMgr.setLabelShow(txt1, true);
+
+
+txt1 = LabelMgr.labelScreen("Press - / = to toggle", 680 * x, (sty+300)*y, false, 15,"#FF0000");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Press [ for Keypress mode", 680 * x, (sty+320)*y, false, 15, "#FF0000");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Press ] for Screen Saver Mode", 680 * x, (sty+340)*y,false, 15, "#FF0000");
+LabelMgr.setLabelShow(txt1, true);
+
+
+
+txt1 = LabelMgr.labelScreen("By Qam1 ", 900*x, 10*y, false, 25, "#A0801D");
+LabelMgr.setLabelShow(txt1, true);
+
+
+
+
+// Label
+
+
+// Get au
+
+q = 0;
+
+
+while (q ==0)
+{
+
+
+txt1 = LabelMgr.labelScreen("-->", 710*x, ((au*20)+7)*y, false, 25, "#FF0000");
+LabelMgr.setLabelShow(txt1, true);
+
+core.wait(0.07);
+
+
+d = Math.floor(core.getJDay());
+r = d;
+
+while (d==r)
+{
+r = Math.floor(core.getJDay());
+}
+
+if (r - d == 1) 
+{
+au = au + 1;
+core.setDate("-1 days");
+if (au > 13)
+{
+au = 1;
+}
+}
+
+
+if (r - d == -1) 
+{
+au = au - 1;
+core.setDate("+1 days");
+if (au < 1 )
+{
+au = 13
+}
+}
+
+
+if (r - d > 5) 
+{
+q = 1;
+ss = 1;
+}
+
+
+LabelMgr.setLabelShow(txt1, false);
+
+
+if (r - d < -5) 
+{
+q = 1;
+ss = 0;
+}
+
+} // end main screen
+
+
+
+
+
+txt1 = LabelMgr.labelScreen("-->", 710*x, ((au*20)+7)*y, false, 25, "#FFFFFF");
+LabelMgr.setLabelShow(txt1, true);
+core.wait(.05);
+
+core.setJDay(j);
+
+
+
+if (au == 1)
+{
+p1 = "Mercury";
+pfast = "3 days";
+tstart = 12;
+zoom = 40;
+}
+
+
+
+if (au == 2)
+{
+p1 = "Venus";
+pfast = "3 days";
+tstart = 40;
+zoom = 50;
+}
+
+if (au == 3)
+{
+p1 = "Mars";
+pfast = "5 days";
+tstart = 90;
+zoom = 40;
+}
+
+if (au == 4)
+{
+p1 = "Vesta";
+pfast = "5 days";
+tstart = 75;
+zoom = 40;
+}
+
+if (au == 5)
+{
+p1 = "Ceres"
+pfast = "5 days";
+tstart = 75;
+zoom = 45;
+}
+
+if (au == 6)
+{
+p1 = "Pallas"
+pfast = "5 days";
+tstart = 75;
+zoom = 65;
+}
+
+if (au == 7)
+{
+p1 = "Juno"
+pfast = "5 days";
+tstart = 75;
+zoom = 65;
+}
+
+
+if (au == 8)
+{
+p1 = "Jupiter";
+pfast = "5 days";
+tstart = 70;
+zoom = 24;
+}
+
+
+if (au == 9)
+{
+p1 = "Saturn";
+pfast = "5 days";
+tstart = 45;
+zoom = 19;
+}
+
+if (au == 10)
+{
+p1 = "Uranus";
+pfast = "5 days";
+tstart = 25;
+zoom = 10;
+}
+
+if (au == 11)
+{
+p1 = "Neptune";
+pfast = "5 days";
+tstart = 25;
+zoom = 8;
+}
+
+
+if (au == 12)
+{
+p1 = "Pluto";
+pfast = "5 days";
+tstart = 25;
+zoom = 8;
+}
+
+
+if (au == 13)
+{
+txt1 = LabelMgr.labelScreen("Later!!!", 400, 20, false, 75, "#FFFFFF");
+LabelMgr.setLabelShow(txt1, true);
+core.stopScript();  
+}
+
+
+
+
+
+dir = 0;  
+sen = 8;
+
+
+
+
+kickbackm = core.getJDay();
+kickbackd = core.getJDay();
+kickbackh = core.getJDay();
+
+
+pmed = "1 days";
+pslow = "2 hours";
+psslow = "1 minutes";
+
+
+pi = 3.14159265358979323846264338327950288419716939937510;
+rad = pi/180;
+deg = 180/pi;
+
+lday = 1;
+au = 1;
+ag = 1;
+
+nfast = "-" + pfast;
+nmed = "-" + pmed;
+nslow = "-" + pslow;
+nsslow = "-" + psslow;
+
+
+pfast = "+" + pfast;
+pmed = "+" + pmed;
+pslow = "+" + pslow;
+psslow = "+" + psslow;
+
+
+
+x1 = 0;
+lhigh = 200;
+
+
+
+
+
+StelMovementMgr.zoomTo(zoom * 2, 1);
+
+LandscapeMgr.setFlagAtmosphere(false);
+
+LandscapeMgr.setFlagLandscape(false);
+
+core.selectObjectByName(p1, pointer = true);
+StelMovementMgr.setFlagTracking(true);
+
+
+SolarSystem.setFlagTrails(false); 
+
+LabelMgr.deleteAllLabels();
+
+q = 0;
+
+
+while (q == 0) // make sure we not currently going retrograde
+{
+
+core.wait(spd);
+
+j = core.getJDay();
+
+SunData = core.getObjectPosition(p1);
+alpha1 = SunData["ra"];
+
+
+core.setDate(psslow);
+core.wait(spd);
+
+SunData = core.getObjectPosition(p1);
+alpha2 = SunData["ra"];
+
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+if (alpha2 < 0)
+{
+alpha2 = 360 + alpha2;
+}
+
+
+elong =  alpha2 - alpha1;
+
+if (Math.abs(elong) > 180)
+{
+elong = alpha1 - alpha2;
+} // elong > 180
+
+
+LabelMgr.deleteAllLabels();
+
+if (au > 1)
+{
+
+txt1 = LabelMgr.labelScreen("Currently in Retrograde - Going back", 500*x, 50*y, false, 20, "#FF0010");
+LabelMgr.setLabelShow(txt1, true);
+}
+
+core.wait(spd);
+au = au + 1;
+
+
+
+if (elong > 0)
+{
+q = 1;
+}
+else
+{
+core.setDate(nfast);
+}
+
+
+
+
+} // q0
+
+
+
+
+
+
+
+
+while (q < 30)
+{
+
+
+core.wait(spd);
+
+SunData = core.getObjectPosition(p1);
+lastra = SunData["ra"];
+
+
+StelMovementMgr.zoomTo(zoom*2, 1);
+
+core.wait(spd);
+
+
+au = 1;
+
+while (q == 1) // Fast 
+{
+
+
+
+LabelMgr.deleteAllLabels();
+
+core.setDate(pfast);
+
+
+j = core.getJDay();
+
+if (j > end) // end
+{
+q = 30;
+}
+
+core.wait(spd);
+
+// I wish I could figure out functions & subs. Bring back Gosub!!!!
+
+
+SunData = core.getObjectPosition(p1);
+alpha2 = SunData["ra"];
+
+alpha1 = lastra;
+
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+if (alpha2 < 0)
+{
+alpha2 = 360 + alpha2;
+}
+
+
+elong =  alpha2 - alpha1;
+
+if (Math.abs(elong) > 180)
+{
+elong = alpha1 - alpha2;
+} // elong > 180
+
+elong = elong.toFixed(sen)
+
+
+if (elong < 0)
+{
+kickbackm = core.getJDay();
+core.setDate(nfast);
+core.setDate(nfast);
+q = 2;
+}
+
+
+lastra = alpha2; 
+
+
+
+
+
+} // q1
+
+
+
+if (ag == 1)
+{
+SolarSystem.setFlagTrails(true); 
+}
+
+
+ag = ag + 1;
+
+
+
+
+
+
+core.wait(spd);
+SunData = core.getObjectPosition(p1);
+lastra = SunData["ra"];
+
+
+StelMovementMgr.zoomTo(zoom, .1);
+
+core.wait(spd);
+
+
+while (q == 2)
+{
+LabelMgr.deleteAllLabels();
+
+core.setDate(pmed);
+j = core.getJDay();
+
+if (j > end) // end
+{
+q = 30;
+}
+
+
+if (j > kickbackm) // WHy!!!!!!!!!!!!!
+{
+core.setJDay(kickbackm);
+q = 1;
+}
+
+
+
+core.wait(spd);
+
+// I wish I could figure out functions & subs. Bring back Gosub!!!!
+
+SunData = core.getObjectPosition(p1);
+alpha2 = SunData["ra"];
+
+alpha1 = lastra;
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+if (alpha2 < 0)
+{
+alpha2 = 360 + alpha2;
+}
+
+
+elong =  alpha2 - alpha1;
+
+if (Math.abs(elong) > 180)
+{
+elong = alpha1 - alpha2;
+} // elong > 180
+
+elong = elong.toFixed(sen)
+
+
+
+
+if (elong < 0)
+{
+kickbackd = core.getJDay();
+core.setDate(nmed);
+core.setDate(nmed);
+
+q = 5;
+}
+
+
+lastra = alpha2; 
+
+
+
+} // q2
+
+
+
+
+
+
+
+
+SunData = core.getObjectPosition(p1);
+lastra = SunData["ra"];
+
+
+
+StelMovementMgr.zoomTo(zoom-1, 1);
+
+core.wait(1);
+
+
+while (q == 3)
+{
+
+LabelMgr.deleteAllLabels();
+
+core.setDate(pslow);
+j = core.getJDay();
+
+if (j > end) // end
+{
+q = 30;
+}
+
+
+if (j > kickbackd) // WHy!!!!!!!!!!!!!
+{
+core.setJDay(kickbackd);
+q = 2;
+
+}
+
+core.wait(spd);
+
+// I wish I could figure out functions & subs. Bring back Gosub!!!!
+
+SunData = core.getObjectPosition(p1);
+alpha2 = SunData["ra"];
+
+alpha1 = lastra;
+
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+if (alpha2 < 0)
+{
+alpha2 = 360 + alpha2;
+}
+
+
+elong =  alpha2 - alpha1;
+
+if (Math.abs(elong) > 180)
+{
+elong = alpha1 - alpha2;
+} // elong > 180
+
+elong = elong.toFixed(sen)
+
+if (elong < 0)
+{
+kickbackh = core.getJDay();
+
+q = 4;
+}
+else
+{
+lastra = alpha2; 
+}
+
+
+} // q3
+
+core.wait(spd);
+
+SunData = core.getObjectPosition(p1);
+lastra = SunData["ra"];
+
+
+StelMovementMgr.zoomTo(zoom-2, 1);
+
+core.wait(1);
+
+if (acc < 1)
+{
+core.setDate(nslow);
+core.setDate(nslow);
+}
+else
+{
+q = 5
+}
+
+
+
+while (q == 4)
+{
+
+
+LabelMgr.deleteAllLabels();
+
+core.setDate(psslow);
+j = core.getJDay();
+
+if (j > end) // end
+{
+q = 30;
+}
+
+if (j > kickbackh) // why o why is this needed!!!
+{
+core.setJDay(kickbackh);
+q = 3;
+}
+
+core.wait(spd);
+
+// I wish I could figure out functions & subs. Bring back Gosub!!!!
+
+SunData = core.getObjectPosition(p1);
+alpha2 = SunData["ra"];
+
+alpha1 = lastra;
+
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+if (alpha2 < 0)
+{
+alpha2 = 360 + alpha2;
+}
+
+
+elong =  alpha2 - alpha1;
+
+if (Math.abs(elong) > 180)
+{
+elong = alpha1 - alpha2;
+} // elong > 180
+
+
+elong = elong.toFixed(sen)
+
+
+
+if (elong < 0)
+{
+core.setDate(nsslow);
+core.setDate("+30 seconds");
+q = 5;
+}
+else
+{
+lastra = alpha2; 
+}
+
+} // q4
+
+
+
+if (q == 5)
+{
+
+core.wait(spd);
+
+SunData = core.getObjectPosition(p1);
+alpha1 = SunData["ra"];
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+startra = alpha1
+
+
+
+vxc = core.getDate();
+
+
+txt1 = LabelMgr.labelScreen("Start Retrograde Motion: " + vxc,  10*x, 500*y, false, 20, "#FF0010");
+LabelMgr.setLabelShow(txt1, true);
+
+j = core.getJDay();
+
+startjd = j
+
+core.wait(delay/4);
+
+
+core.setDate(pfast);
+
+q = 6;
+
+} // q5
+
+
+// Stop REtrograde 
+
+
+
+while (q == 6) // Fast 
+{
+
+
+
+
+core.setDate(pfast);
+
+
+j = core.getJDay();
+
+if (j > end) // end
+{
+q = 30;
+}
+
+core.wait(spd);
+
+// I wish I could figure out functions & subs. Bring back Gosub!!!!
+
+
+SunData = core.getObjectPosition(p1);
+alpha2 = SunData["ra"];
+
+alpha1 = lastra;
+
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+if (alpha2 < 0)
+{
+alpha2 = 360 + alpha2;
+}
+
+
+elong =  alpha2 - alpha1;
+
+if (Math.abs(elong) > 180)
+{
+elong = alpha1 - alpha2;
+} // elong > 180
+
+elong = elong.toFixed(sen)
+
+
+if (elong > 0)
+{
+kickbackm = core.getJDay();
+core.setDate(nfast);
+core.setDate(nfast);
+q = 7;
+}
+
+
+lastra = alpha2; 
+
+
+
+
+
+}
+
+
+
+
+core.wait(spd);
+SunData = core.getObjectPosition(p1);
+lastra = SunData["ra"];
+
+
+
+
+while (q == 7) // day
+{
+
+
+core.setDate(pmed);
+j = core.getJDay();
+
+if (j > end) // end
+{
+q = 30;
+}
+
+
+
+if (j > kickbackm) // WHy!!!!!!!!!!!!!
+{
+core.setJDay(kickbackm);
+q = 6;
+
+}
+
+core.wait(spd);
+
+// I wish I could figure out functions & subs. Bring back Gosub!!!!
+
+SunData = core.getObjectPosition(p1);
+alpha2 = SunData["ra"];
+
+alpha1 = lastra;
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+if (alpha2 < 0)
+{
+alpha2 = 360 + alpha2;
+}
+
+
+elong =  alpha2 - alpha1;
+
+if (Math.abs(elong) > 180)
+{
+elong = alpha1 - alpha2;
+} // elong > 180
+
+elong = elong.toFixed(sen)
+
+
+
+
+if (elong > 0)
+{
+kickbackd = core.getJDay();
+core.setDate(nmed);
+q = 8;
+}
+
+
+lastra = alpha2; 
+
+
+} // q7
+
+
+
+
+
+StelMovementMgr.zoomTo(zoom-3, 1);
+
+core.wait(1);
+
+
+while (q == 8)
+{
+
+
+core.setDate(pslow);
+j = core.getJDay();
+
+if (j > end) // end
+{
+q = 30;
+}
+
+
+if (j > kickbackd) // WHy!!!!!!!!!!!!!
+{
+core.setJDay(kickbackd);
+q = 7;
+
+}
+
+
+core.wait(spd);
+
+// I wish I could figure out functions & subs. Bring back Gosub!!!!
+
+
+SunData = core.getObjectPosition(p1);
+alpha1 = SunData["ra"];
+
+
+core.setDate(psslow);
+core.wait(spd);
+
+SunData = core.getObjectPosition(p1);
+alpha2 = SunData["ra"];
+
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+if (alpha2 < 0)
+{
+alpha2 = 360 + alpha2;
+}
+
+
+elong =  alpha2 - alpha1;
+
+if (Math.abs(elong) > 180)
+{
+elong = alpha1 - alpha2;
+} // elong > 180
+
+elong = elong.toFixed(sen)
+
+
+
+if (elong > 0)
+{
+kickbackh = core.getJDay();
+q = 9;
+}
+
+
+} // q8
+
+
+if (acc < 1)
+{
+core.setDate(nslow);
+core.setDate(nslow);
+}
+else
+{
+q = 10
+}
+
+
+
+
+
+
+while (q == 9)
+{
+
+
+
+core.setDate(psslow);
+j = core.getJDay();
+
+if (j > end) // end
+{
+q = 30;
+}
+
+if (j > kickbackh) // WHy!!!!!!!!!!!!!
+{
+core.setJDay(kickbackh);
+q = 8;
+
+}
+
+
+
+core.wait(spd);
+
+// I wish I could figure out functions & subs. Bring back Gosub!!!!
+
+
+SunData = core.getObjectPosition(p1);
+alpha1 = SunData["ra"];
+
+
+core.setDate(psslow);
+core.wait(spd);
+
+SunData = core.getObjectPosition(p1);
+alpha2 = SunData["ra"];
+
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+if (alpha2 < 0)
+{
+alpha2 = 360 + alpha2;
+}
+
+
+elong =  alpha2 - alpha1;
+
+if (Math.abs(elong) > 180)
+{
+elong = alpha1 - alpha2;
+} // elong > 180
+
+elong = elong.toFixed(sen)
+
+
+
+if (elong > 0)
+{
+core.setDate(nsslow);
+core.setDate("+30 seconds");
+q = 10;
+}
+
+
+} // q9
+
+
+
+if (q == 10)
+{
+
+
+core.wait(spd);
+
+SunData = core.getObjectPosition(p1);
+alpha1 = SunData["ra"];
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+stopra = alpha1
+
+
+afterstopra = startra - stopra;
+
+
+if (afterstopra < -180)
+{
+afterstopra = (360 - stopra) + startra
+}
+
+vxc = core.getDate();
+
+
+j = core.getJDay();
+
+stopjd = j
+
+
+stosjd = stopjd - startjd;
+
+txt1 = LabelMgr.labelScreen("Stop  Retrograde Motion: " + vxc,  10*x, 530*y, false, 20, "#FF0010");
+LabelMgr.setLabelShow(txt1, true);
+
+
+
+txt1 = LabelMgr.labelScreen("After: " + stosjd.toFixed(1) + " days and " + afterstopra.toFixed(2) + " degrees", 500*x, 530*y, false, 20, "#FF0010");
+LabelMgr.setLabelShow(txt1, true);
+
+
+core.wait(delay/4);
+
+
+
+
+
+
+
+
+
+
+core.setDate(pfast);
+StelMovementMgr.zoomTo(zoom*2, 1);
+
+core.wait(1);
+
+q = 11;
+
+} // q10
+
+
+
+// Regain what was lost 
+
+
+lhigh = 200;
+
+
+while (q == 11) // Fast 
+{
+core.setDate(pfast);
+j = core.getJDay();
+
+if (j > end) // end
+{
+q = 30;
+}
+
+
+core.wait(spd);
+
+SunData = core.getObjectPosition(p1);
+alpha1 = SunData["ra"];
+delta1 = 1;
+
+alpha2 = startra - (afterstopra * .25);
+delta2 = 1;
+
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+if (alpha2 < 0)
+{
+alpha2 = 360 + alpha2;
+}
+
+
+alpha1 = alpha1 * rad;
+alpha2 = alpha2 * rad;
+
+delta1 = delta1 * rad;
+delta2 = delta2 * rad;
+
+plex = Math.cos (alpha1-alpha2);
+
+elong =  Math.sin (delta1) *  Math.sin (delta2); 
+elong = elong +  Math.cos(delta1) *  Math.cos(delta2) * plex; 
+elong =  Math.acos (elong) * deg;
+
+
+if (elong > lhigh)
+{
+
+kickbackm = core.getJDay();
+core.setDate(nfast);
+core.setDate(nfast);
+
+q = 12
+lhigh = 200;
+}
+else
+{
+lhigh = elong;
+}
+
+
+
+} // q11
+
+
+StelMovementMgr.zoomTo(zoom, 1);
+
+core.wait(1);
+lhigh = 200;
+
+
+
+while (q == 12)
+{
+
+core.setDate(pmed);
+j = core.getJDay();
+
+if (j > end) // end
+{
+q = 30;
+}
+
+//if (j > kickbackm) // WHy!!!!!!!!!!!!!
+//{
+//core.setJDay(kickbackm);
+//q = 11;
+//}
+
+
+core.wait(spd);
+
+SunData = core.getObjectPosition(p1);
+alpha1 = SunData["ra"];
+delta1 = 1;
+
+alpha2 = startra - (afterstopra * .05)
+delta2 = 1;
+
+
+
+delta2 = 1;
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+if (alpha2 < 0)
+{
+alpha2 = 360 + alpha2;
+}
+
+alpha1 = alpha1 * rad;
+alpha2 = alpha2 * rad;
+
+delta1 = delta1 * rad;
+delta2 = delta2 * rad;
+
+plex = Math.cos (alpha1-alpha2);
+
+elong =  Math.sin (delta1) *  Math.sin (delta2); 
+elong = elong +  Math.cos(delta1) *  Math.cos(delta2) * plex; 
+elong =  Math.acos (elong) * deg;
+
+
+if (elong > lhigh)
+{
+
+kickbackd = core.getJDay();
+core.setDate(nmed);
+core.setDate(nmed);
+
+q = 13
+lhigh = 200;
+}
+else
+{
+lhigh = elong;
+}
+
+} // q12
+
+
+while (q == 13)
+{
+
+core.setDate(pslow);
+j = core.getJDay();
+
+if (j > end) // end
+{
+q = 30;
+}
+
+//if (j > kickbackd) // WHy!!!!!!!!!!!!!
+//{
+//core.setJDay(kickbackd);
+//q = 12;
+//}
+
+
+
+core.wait(spd);
+
+SunData = core.getObjectPosition(p1);
+alpha1 = SunData["ra"];
+delta1 = 1;
+
+alpha2 = startra;
+delta2 = 1;
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+if (alpha2 < 0)
+{
+alpha2 = 360 + alpha2;
+}
+
+alpha1 = alpha1 * rad;
+alpha2 = alpha2 * rad;
+
+delta1 = delta1 * rad;
+delta2 = delta2 * rad;
+
+plex = Math.cos (alpha1-alpha2);
+
+elong =  Math.sin (delta1) *  Math.sin (delta2); 
+elong = elong +  Math.cos(delta1) *  Math.cos(delta2) * plex; 
+elong =  Math.acos (elong) * deg;
+
+
+if (elong > lhigh)
+{
+
+kickbackh = core.getJDay();
+
+
+q = 14
+lhigh = 200;
+}
+else
+{
+lhigh = elong;
+}
+
+} // q13
+
+
+
+if (acc < 1)
+{
+core.setDate(nslow);
+core.setDate(nslow);
+}
+else
+{
+q = 15
+}
+
+
+
+
+mpc = 100;
+nmpc = 0;
+
+StelMovementMgr.zoomTo(zoom-1, 1);
+
+core.wait(1);
+
+while (q == 14)
+{
+
+core.setDate(psslow);
+j = core.getJDay();
+
+if (j > end) // end
+{
+q = 30;
+}
+
+
+if (j > kickbackh) // WHy!!!!!!!!!!!!!
+{
+core.setJDay(kickbackh);
+q = 13;
+}
+
+
+
+core.wait(spd);
+
+// I wish I could figure out functions & subs. Bring back Gosub!!!!
+
+SunData = core.getObjectPosition(p1);
+alpha1 = SunData["ra"];
+delta1 = 1;
+
+alpha2 = startra;
+delta2 = 1;
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+if (alpha2 < 0)
+{
+alpha2 = 360 + alpha2;
+}
+
+alpha1 = alpha1 * rad;
+alpha2 = alpha2 * rad;
+
+delta1 = delta1 * rad;
+delta2 = delta2 * rad;
+
+plex = Math.cos (alpha1-alpha2);
+
+elong =  Math.sin (delta1) *  Math.sin (delta2); 
+elong = elong +  Math.cos(delta1) *  Math.cos(delta2) * plex; 
+elong =  Math.acos (elong) * deg;
+
+
+if (x < mpc )
+{
+mpc = x ;
+bmdegs = x;
+bjdms = j;
+nmpc = 0 ;
+}
+
+nmpc = nmpc + 1;
+
+if (nmpc == 10)
+{
+core.setJDay(bjdms);
+core.setDate("+30 seconds");
+nmpc = 0;
+x1 = bmdegs;
+
+q = 15;
+
+
+}
+
+} // q14
+
+
+
+
+if (q == 15)
+{
+
+
+core.wait(spd);
+
+SunData = core.getObjectPosition(p1);
+alpha1 = SunData["ra"];
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+regainra = alpha1
+
+
+regainra = startra - regainra;
+
+
+
+vxc = core.getDate();
+
+
+j = core.getJDay();
+
+regainjd = j
+
+
+storjd = regainjd - startjd;
+
+txt1 = LabelMgr.labelScreen("Regain   what  was  lost: " + vxc,  10*x, 560*y, false, 20, "#FF0010");
+LabelMgr.setLabelShow(txt1, true);
+
+
+
+txt1 = LabelMgr.labelScreen("After: " + storjd.toFixed(1) + " days", 500*x, 560*y, false, 20, "#FF0010");
+LabelMgr.setLabelShow(txt1, true);
+
+
+
+// Wait for Keypress
+
+d = Math.floor(core.getJDay());
+r = d;
+
+
+
+ag = 1;
+
+if (ss ==1)
+{
+core.wait(delay);
+r = 1;
+ag = 0;
+
+}
+
+txt1 = LabelMgr.labelScreen("Press + to go to next retrograde", 500*x, 610*y, false, 15, "#FF0010");
+LabelMgr.setLabelShow(txt1, true);
+
+
+
+while (ag == 1)
+{
+r = Math.floor(core.getJDay());
+
+if (Math.abs(r-d) > 0)
+{
+ag = 2;
+}
+
+}
+
+
+
+core.setDate(pfast);
+core.setDate(pfast);
+
+
+SolarSystem.setFlagTrails(false);
+q = 16;
+
+} // q15
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+lhigh = 200;
+
+if (p1 == "Mercury")
+{
+core.setDate("+30 days");
+}
+
+
+
+if (p1 == "Venus")
+{
+core.setDate("+90 days");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+while (q == 16) // Fast to sun 
+{
+
+
+
+
+
+LabelMgr.deleteAllLabels();
+
+core.setDate(pfast);
+j = core.getJDay();
+
+if (j > end) // end
+{
+q = 30;
+}
+
+core.wait(spd);
+
+// I wish I could figure out functions & subs. Bring back Gosub!!!!
+
+SunData = core.getObjectPosition(p1);
+alpha1 = SunData["ra"];
+delta1 = SunData["dec"];
+
+SunData = core.getObjectPosition("Sun");
+alpha2 = SunData["ra"];
+delta2 = SunData["dec"];
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+if (alpha2 < 0)
+{
+alpha2 = 360 + alpha2;
+}
+
+alpha1 = alpha1 * rad;
+alpha2 = alpha2 * rad;
+
+delta1 = delta1 * rad;
+delta2 = delta2 * rad;
+
+plex = Math.cos (alpha1-alpha2);
+
+elong =  Math.sin (delta1) *  Math.sin (delta2); 
+elong = elong +  Math.cos(delta1) *  Math.cos(delta2) * plex; 
+elong =  Math.abs(Math.acos (elong) * deg);
+
+
+if (elong >lhigh)
+{
+lhigh = 200;
+q = 17
+
+}
+
+
+
+
+
+if (elong < lhigh)
+{
+lhigh = elong;
+}
+
+
+
+
+} // q16
+
+
+
+
+while (q == 17) // Fast to tstart 
+{
+
+LabelMgr.deleteAllLabels();
+
+core.setDate(pfast);
+j = core.getJDay();
+
+if (j > end) // end
+{
+q = 30;
+}
+
+core.wait(spd);
+
+// I wish I could figure out functions & subs. Bring back Gosub!!!!
+
+SunData = core.getObjectPosition(p1);
+alpha1 = SunData["ra"];
+delta1 = SunData["dec"];
+
+SunData = core.getObjectPosition("Sun");
+alpha2 = SunData["ra"];
+delta2 = SunData["dec"];
+
+if (alpha1 < 0)
+{
+alpha1 = 360 + alpha1;
+}
+
+if (alpha2 < 0)
+{
+alpha2 = 360 + alpha2;
+}
+
+alpha1 = alpha1 * rad;
+alpha2 = alpha2 * rad;
+
+delta1 = delta1 * rad;
+delta2 = delta2 * rad;
+
+plex = Math.cos (alpha1-alpha2);
+
+elong =  Math.sin (delta1) *  Math.sin (delta2); 
+elong = elong +  Math.cos(delta1) *  Math.cos(delta2) * plex; 
+elong =  Math.abs(Math.acos (elong) * deg);
+
+
+
+if (elong > tstart)
+{
+SolarSystem.setFlagTrails(true); 
+q = 1
+}
+
+
+
+
+
+
+
+
+
+
+
+
+} // q17
+
+
+
+
+} // q < 30
+
+
+

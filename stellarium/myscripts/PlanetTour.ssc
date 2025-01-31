@@ -1,0 +1,22 @@
+	
+include("common_functions.inc");
+
+initStellarium();
+
+
+	var planets = new Array("Moon", "Mars", "Venus", "Saturn", "Sun");
+	
+	ConstellationMgr.deselectConstellations();
+	
+	LandscapeMgr.setFlagLandscape(false);
+	LandscapeMgr.setFlagAtmosphere(false);
+	LandscapeMgr.setFlagFog(false);
+	
+	for(i = 0; i < planets.length; i++){
+		commentary_at("Visiting : "+  planets[i],300,200);
+		outAndIn(planets[i]);
+		core.wait(2);
+	}
+	
+resetStellarium();
+

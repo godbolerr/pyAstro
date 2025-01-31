@@ -1,0 +1,15 @@
+GridLinesMgr.setFlagEclipticJ2000Grid(false);
+GridLinesMgr.setFlagEclipticDatesLabeled (true);
+//LandscapeMgr.setCurrentLandscapeID("zero");
+GridLinesMgr.setFlagMeridianLine(true);
+LandscapeMgr.setFlagAtmosphere(false);
+LandscapeMgr.setFlagLandscape(false);
+core.wait(1);
+core.setDate("2000-03-22T12:00:00", "UTC");
+
+for (i=0; i<12	; i++)
+{
+	core.setDate("+1 year");
+       core.selectObjectByName("HIP21421", true);
+	core.wait(1);
+}

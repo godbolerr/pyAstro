@@ -1,0 +1,15 @@
+include("common_functions.inc");
+include("i18n.inc");
+
+core.clear("natural");
+LabelMgr.deleteAllLabels();
+MarkerMgr.deleteAllMarkers();
+core.goHome();
+core.setGuiVisible(false);
+GridLinesMgr.setFlagAzimuthalGrid(true);
+GridLinesMgr.setFlagMeridianLine(true);
+core.wait(1);
+
+
+
+

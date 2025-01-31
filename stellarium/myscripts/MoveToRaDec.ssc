@@ -1,0 +1,2 @@
+GridLinesMgr.setFlagAzimuthalGrid(true);
+core.moveToRaDec("+240d", "20d");

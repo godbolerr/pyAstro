@@ -1,0 +1,97 @@
+# List of Nakshatra and locations
+
+
+function showNakshatra(cObject, aFOV,i)
+{
+	var info = core.getObjectInfo(cObject[i][3]);
+	 core.selectObjectByName(cObject[i][3], true);
+	core.output(info);
+	var id = LabelMgr.labelScreen(cObject[i][1] + " - " + cObject[i][5]  , 20, 20, false, 30, "#00AAFF");
+       var id1 = LabelMgr.labelScreen(" E Long: " + info.elong  , 20, 60, false, 30, "#00CCFF");
+       var id2 = LabelMgr.labelScreen( " E Lat: " + info.elat , 20, 90, false, 30, "#00AAFF");
+       var id3 = LabelMgr.labelScreen( " V Mag: " + info.vmag , 20, 130, false, 30, "#11AAFF")
+       var id4 = LabelMgr.labelScreen( " Name: " + info.name , 20, 160, false, 30, "#55AAFF")
+	
+
+LabelMgr.setLabelShow(id, true);
+LabelMgr.setLabelShow(id1, true);
+LabelMgr.setLabelShow(id2, true);
+LabelMgr.setLabelShow(id3, true);
+LabelMgr.setLabelShow(id4, true);
+
+StelMovementMgr.autoZoomIn(4);
+core.wait(1);
+StelMovementMgr.zoomTo(aFOV,3);
+var color = "#ff9900";
+var label = LabelMgr.labelObject(cObject[i][5],cObject[i][3], true, 16, color, "SE");
+LabelMgr.setLabelShow(label, true);
+core.wait(3);
+LabelMgr.setLabelShow(label, false);
+LabelMgr.setLabelShow(id, false);
+LabelMgr.setLabelShow(id1, false);
+LabelMgr.setLabelShow(id2, false);
+LabelMgr.setLabelShow(id3, false);
+LabelMgr.setLabelShow(id4, false);
+}
+
+
+// RA, DE, FOV, Name, HIP, Note
+
+var nakshatraInfo= [["1","Ashwini","1.1","HIP8832","HR 546","अश्विनी  "],
+["3","Bharani","2.1","HIP12719","HR 801","भरणी "],
+["6","Kruttika","3.1","HIP17499","hr 1142","कृत्तिका "],
+["14","Rohini","4","HIP21421","hr 1457","रोहिणी "],
+["15","Mrugshirsha","5.1","HIP26176","hr 1876","मृगः "],
+["18","Adra","6","HIP27989","hr 2061","आर्द्रा "],
+["19","Punarvasu","7.1","HIP36850","hr 2890","पुनर्वसु "],
+["21","Pushya","8.1","HIP41822","hr 3357","पुष्य"],
+["24","Ashlesha","9.1","HIP42313","3410","श्लेषा "],
+["29","Magha","10","HIP49669","3982","मघा "],
+["30","PurvFalguna","11.1","HIP54872","4357","पूर्वाफाल्गुन"],
+["32","UttarFalguna","12.1","HIP57632","4534","उत्तराफाल्गुनी "],
+["33","Hasta","13.1","HIP59199","4623","हस्त"],
+["38","Chitra","14","HIP65474","5056","चित्रा "],
+["39","Swati","15","HIP69673","5340","स्वाती "],
+["40","Vishakha","16.1","HIP72622","5531","विशाखा "],
+["44","Anuradha","17.1","HIP78265","5944","अनुराघा "],
+["47","Jeshtha","18.1","HIP80112","6084","ज्येष्ठा "],
+["50","Mula","19.1","HIP82396","6241","मूलं "],
+["59","Purvashadha","20.1","HIP89931","6859","पूर्वाषाढा "],
+["61","Uttarashadha","21.1","HIP92855","7121","त्तराषाढा "],
+["65","Shravan","22.3","HIP98036","7602","Test"],
+["66","Dhanishtha","23.1","HIP101958 ","7906","घनिष्ठा "],
+["68","Shatataraka","24","HIP110395","8518","शततार"],
+["69","PurvBhadrapada","25.1","HIP113881","8775","पूर्वाभाद्रपद"],
+["71","UttarBhadrapada","26.1","HIP677","15","उत्तराभाद्रप"],
+["73","Revati","27","HIP5737","361","रेवत्येतानि "] ];
+
+var color="#00AAFF";
+var relscale = StelSkyDrawer.getRelativeStarScale();
+var absscale = StelSkyDrawer.getAbsoluteStarScale();
+
+core.clear("natural");
+LandscapeMgr.setFlagAtmosphere(false);
+LandscapeMgr.setFlagFog(false);
+LandscapeMgr.setFlagLandscape(false);
+GridLinesMgr.setFlagEquatorGrid(false);
+StelMovementMgr.setFlagTracking(true);
+core.setGuiVisible(false);
+ConstellationMgr.setFlagArt(false);
+ConstellationMgr.setFlagBoundaries(true);
+ConstellationMgr.setFlagLines(true);
+ConstellationMgr.setFlagLabels(true);
+ConstellationMgr.setFlagIsolateSelected(true);
+core.wait(3);
+StelSkyDrawer.setRelativeStarScale(0.5);
+StelSkyDrawer.setAbsoluteStarScale(2.0);
+GridLinesMgr.setFlagEclipticLine(true);
+var shift = 0;
+for (i=0; i<27; i++)
+{
+	showNakshatra(nakshatraInfo,120,i);
+}
+core.clear("natural");
+core.setGuiVisible(true);
+core.goHome();
+
+ 

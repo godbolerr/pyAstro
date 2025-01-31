@@ -1,0 +1,44 @@
+// My first script
+
+
+include("stellaCommon.ssc");
+
+initStellarium();
+
+
+ids = blockText(Array("March Equinox 2014, Galapagos Islands, Equator"));
+core.wait(5);
+clearLabels(ids);
+
+
+var currentPlanet = "Jupiter";
+
+core.selectObjectByName(currentPlanet, false);
+StelMovementMgr.setFlagTracking(false);
+StelMovementMgr.autoZoomIn(3);
+core.wait(1);
+StelMovementMgr.zoomTo(80, 1);
+core.wait(1);
+GridLinesMgr.setFlagAzimuthalGrid(true);
+GridLinesMgr.setFlagMeridianLine(true);
+StelMovementMgr.zoomTo(100, 3);
+core.wait(8);
+
+
+
+for (i=0; i<53; i++)
+{
+    var week = i + 1;
+    core.setDate("+1 week");
+    var info = core.getObjectInfo(currentPlanet);
+    var az = info.azimuth;
+    var alt = info.altitude;
+    MarkerMgr.markerHorizon(az, alt, true, "gear", color, 5);    
+    labelWeek = LabelMgr.labelScreen(" Week : " + week + ":" + core.getDate(""), 20, 60, false, 20, color);
+    LabelMgr.setLabelShow(labelWeek, true);
+    core.wait(.25);    
+    LabelMgr.setLabelShow(labelWeek, false);
+
+}
+
+resetStellarium();

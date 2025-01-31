@@ -1,0 +1,71 @@
+include("i18n.inc");
+
+core.goHome();
+core.wait(4);
+core.clear("starchart");
+core.setSkyCulture("western");
+core.setSkyLanguage("mr");
+core.setTimeRate(40);
+//core.setProjectionMode("ProjectionStereographic");
+
+var constellations = ConstellationMgr.getConstellationsEnglishNames();
+
+ConstellationMgr.setFlagArt(false);
+ConstellationMgr.setFlagBoundaries(false);
+ConstellationMgr.setFlagLines(false);
+ConstellationMgr.setFlagLabels(false);
+core.setGuiVisible(false);
+
+ConstellationMgr.setFlagBoundaries(true);
+ConstellationMgr.setFlagLines(true);
+ConstellationMgr.setFlagLabels(true);
+ConstellationMgr.setFlagIsolateSelected(true);
+ConstellationMgr.setConstellationLineThickness(5);
+ConstellationMgr.setConstellationDisplayStyle(2);
+/**
+for (i=0; i<1; i++)
+{
+	objName = constellations[i];
+	core.selectConstellationByName(objName);
+	StelMovementMgr.autoZoomIn(3);
+	core.wait(1);
+	StelMovementMgr.zoomTo(90,8);
+	core.wait(1);
+	ConstellationMgr.setFlagArt(true);
+	core.wait(1);
+	ConstellationMgr.setFlagArt(false);
+}
+
+core.setGuiVisible(true);
+core.clear("natural");
+core.goHome();
+
+
+**/
+
+LandscapeMgr.setFlagLandscape(false);
+LandscapeMgr.setFlagAtmosphere(false);
+LandscapeMgr.setFlagFog(false);
+GridLinesMgr.setFlagAzimuthalGrid(false);
+GridLinesMgr.setFlagMeridianLine(true);
+ConstellationMgr.setFlagLines(false);
+core.wait(1);
+core.setObserverLocation(53.349, 83.7674, 219, 0, "Barnaul, Russia");
+ConstellationMgr.setFlagLines(false);
+core.wait(1);
+//core.setDate("2012:06:04T10:00:00");
+core.setDate("now");
+core.selectObjectByName("Moon", false);
+StelMovementMgr.setFlagTracking(true);
+core.wait(2);
+StelMovementMgr.autoZoomIn(2);
+core.wait(2);
+core.setTimeRate(500);
+core.wait(6	);
+core.goHome();
+
+
+
+
+
+

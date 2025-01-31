@@ -1,0 +1,16 @@
+// RA DEC FOR SUN FOR THE WHOLE YEAR
+
+
+core.setDate("2023-03-10T00:00:00", "utc");
+
+for (i=0; i<400; i++)
+{
+	core.setDate("+1 day");
+	var info = core.getObjectInfo("SUN");
+	var raJ2000 = info.raJ2000;
+	var decJ2000 = info.decJ2000;
+    core.output(core.getDate() + "," + raJ2000+","+decJ2000 );
+	
+}
+
+

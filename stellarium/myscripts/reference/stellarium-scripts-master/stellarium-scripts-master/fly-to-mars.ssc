@@ -1,0 +1,35 @@
+// Name:   Fly to Mars
+// Author: Jason Hooper
+// Date:   7 October 2017
+// About:  Fly from Earth to Mars in 20 seconds, keeping the camera on the Sun
+
+core.           setRealTime();
+core.           setMinFps(25);
+core.           setGuiVisible(false);
+SolarSystem.    setFlagLabels(true);
+StarMgr.        setLabelsAmount(0);
+StelMovementMgr.setEquatorialMount(true);
+StelMovementMgr.zoomTo(40, 1);
+
+core.selectObjectByName("Mars", false);
+core.setObserverLocation(0, 0, 100, 0, "", "Earth");
+StelMovementMgr.setFlagTracking(true);
+hideLandscape();
+core.wait(2);
+
+// Track the sun then fly to mars
+core.selectObjectByName("Sun", false);
+StelMovementMgr.setFlagTracking(true);
+core.wait(2);
+core.setObserverLocation(0, 0, 100, 20, "", "Mars");
+hideLandscape();
+
+core.wait(25);
+core.           setMinFps(1);
+
+
+function hideLandscape() {
+  LandscapeMgr.setFlagAtmosphere(false);
+  LandscapeMgr.setFlagLandscape(false);
+  LandscapeMgr.setFlagCardinalPoints(false);
+}

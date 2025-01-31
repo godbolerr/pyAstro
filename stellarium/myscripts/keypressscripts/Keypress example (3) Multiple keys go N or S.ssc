@@ -1,0 +1,120 @@
+// Author: Qam1
+// Name: Keypress #3 - Go North or South 1 Degree Latitude at a time  
+// License: Public Domain
+// Description: Press a key and go North or South 1 degree. See how the stars/constellations change with latitude
+// Version: 1.0
+// 
+// Made on Stellarium 16.1
+
+
+LabelMgr.deleteAllLabels();
+
+core.wait(0.1);
+
+move = 1
+
+
+curloc = core.getObserverLocationInfo();
+
+cq = LandscapeMgr.setFlagCardinalPoints("false");
+
+lat = curloc["latitude"];
+long = curloc["longitude"];
+
+txt1 = LabelMgr.labelScreen("Go North " + move + " degree - Press N ", 600, 10, false, 20, "#FFFF77");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Go South " + move + " degree - Press S ", 600, 40, false, 20, "#FFFF77");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Quit - Press Q", 600, 70, false, 20, "#FFFF77");
+LabelMgr.setLabelShow(txt1, true);
+
+
+q = 0
+
+
+od = NebulaMgr.getFlagHints();  // Keypress N
+os = StarMgr.getFlagStars(); // Keypress S
+oq = LandscapeMgr.getFlagCardinalPoints(); // Keypress Q
+
+
+while (q == 0) 
+{
+
+core.setObserverLocation(long, lat, 0, 0, "", "Earth");
+
+
+kp = 0;
+
+
+
+while (kp == 0)
+{
+core.wait(0.05);
+
+cd = NebulaMgr.getFlagHints();
+
+if (cd != od)
+{
+kp = move
+}
+
+
+
+cs = StarMgr.getFlagStars();
+
+if (cs != os)
+{
+kp = -move
+}
+
+cq = LandscapeMgr.getFlagCardinalPoints();
+
+if (cq != oq)
+{
+kp = 3
+}
+
+
+
+
+
+
+}
+
+
+// set 'em back
+
+
+NebulaMgr.setFlagHints(od);
+StarMgr.setFlagStars(os);
+
+
+lat = lat + kp
+
+
+if (lat > 90)
+{
+lat = 90
+}
+
+
+if (lat < -90)
+{
+lat= -90
+}
+
+
+if (kp == 3)
+{
+q = 1 // quit
+}
+
+
+
+} // quit or not
+
+LabelMgr.deleteAllLabels();
+
+

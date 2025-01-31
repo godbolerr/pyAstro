@@ -1,0 +1,165 @@
+
+function setStage()
+{
+	ConstellationMgr.setFlagLabels(false);
+	SolarSystem.setFlagPlanets(true);
+	LandscapeMgr.setFlagLandscape(true);
+	LandscapeMgr.setFlagAtmosphere(true);
+	LandscapeMgr.setFlagFog(true);
+	StelMovementMgr.autoZoomIn(3);
+
+	StelMovementMgr.setAutoMoveDuration(2);
+	
+	core.goHome();
+	StelMovementMgr.autoZoomIn(1);
+	core.setTimeRate(0);
+	StelMovementMgr.deselection();
+}
+
+function goToNPole()
+{
+	LandscapeMgr.setFlagAtmosphere(false);
+	LandscapeMgr.setFlagFog(false);
+	core.setObserverLocation(15, 90 , 100, t);
+}
+
+function cons_travel()
+{
+	
+	var travrel = new Array("Ursa Minor", "Ursa Major", "Libra");
+	
+	ConstellationMgr.setFlagIsolateSelected(true);
+	ConstellationMgr.setFlagConstellationPick(true);
+
+	ConstellationMgr.deselectConstellations();
+	
+	for(i = 0; i < travrel.length; i++){
+		core.selectConstellationByName(travrel[i]);
+		StelMovementMgr.autoZoomIn(3);
+		StelMovementMgr.zoomTo(80,2);
+		pause();
+		
+		ConstellationMgr.setFlagLines(true);
+		pause();
+		core.wait(2);
+		ConstellationMgr.setFlagLines(false);
+		ConstellationMgr.deselectConstellations();
+	}
+
+	ConstellationMgr.setFlagConstellationPick(false);
+	ConstellationMgr.setFlagIsolateSelected(false);
+}
+
+function constTravel(cons, before, art)
+{
+	for (i=0; i<cons.length; i++)
+	{	
+		objName = cons[i];
+		core.selectConstellationByName(objName);
+		StelMovementMgr.autoZoomIn(6);
+		core.wait(1);
+		StelMovementMgr.zoomTo(40,8);
+		core.wait(before);
+		ConstellationMgr.setFlagArt(true);
+		core.wait(art);
+		ConstellationMgr.setFlagArt(false);
+	}
+}
+
+
+function FastAndSlow(fast, delay, stopSpeed)
+{
+	for(t=fast; t>stopSpeed; t--)
+	{
+		core.setTimeRate(t);
+		core.wait(delay);
+	}
+}
+
+function outAndIn(object)
+{
+	core.wait(2);
+	StelMovementMgr.autoZoomOut(2);
+	core.wait(1);
+	StelMovementMgr.autoZoomOut(2);
+	core.wait(2);
+	core.selectObjectByName(object, false);
+	StelMovementMgr.setFlagTracking(true);
+	core.wait(0.5);
+	StelMovementMgr.autoZoomIn(1);
+	core.wait(0.5);
+	StelMovementMgr.autoZoomIn(2);
+	core.wait(0.5);
+	StelMovementMgr.autoZoomIn(2);
+	core.wait(0.5);
+}
+
+function pause()
+{
+    var oldEquator = GridLinesMgr.getFlagEquatorLine();
+    var pauseLabel = LabelMgr.labelScreen(">>",200,200,true,20,"#ff0000");
+    while (oldEquator == GridLinesMgr.getFlagEquatorLine())
+    {
+        core.wait(0.1);
+    }
+    GridLinesMgr.setFlagEquatorLine(oldEquator);
+    LabelMgr.deleteLabel(pauseLabel);
+    return;
+}
+
+LandscapeMgr.setFlagLandscape(true);
+core.goHome();
+
+// pan around the horizon
+for(i=2; i<5; i++)
+{
+	a = i * 90;
+	core.moveToAltAzi(29, a, 5);
+	core.wait(3);
+}
+core.moveToAltAzi(29, 90, 5);
+core.wait(6);
+
+StelMovementMgr.zoomTo(65, 0);
+
+
+//StelMovementMgr.lookWest(true);
+//core.wait(3);
+//StelMovementMgr.lookEast(true);
+//core.wait(3);
+//StelMovementMgr.lookNorth(true);
+//core.wait(3);
+//StelMovementMgr.lookSouth(true);
+//core.wait(3);
+//StelMovementMgr.lookZenith(true);
+//core.wait(3);
+//StelMovementMgr.lookNadir(true);
+//core.wait(3);
+//StelMovementMgr.lookTowardsNCP(true);
+//core.wait(3);
+//StelMovementMgr.lookTowardsSCP(true);
+//core.wait(3);
+//core.selectObjectByName("Sun", false);
+//core.wait(5);
+//StelMovementMgr.deselection();
+
+var travrel = new Array("Moon", "Mars", "Venus", "Saturn", "Sun");
+
+setStage();
+
+StelMovementMgr.turnUp(false);
+ConstellationMgr.setFlagIsolateSelected(true);
+
+core.waitFor("2023-01-12T17:30:01");
+
+
+FastAndSlow(500,0.08,100);
+
+	for(i = 0; i < travrel.length; i++){
+		outAndIn(travrel[i]);
+		core.wait(3);
+		pause();	
+	}
+
+
+

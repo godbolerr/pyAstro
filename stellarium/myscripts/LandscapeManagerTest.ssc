@@ -1,0 +1,44 @@
+// Landscape manager Notes
+
+
+include("common_functions.inc");
+
+
+core.clear("natural");
+core.setDate("2009-10-01T05:00:00"); 
+LabelMgr.deleteAllLabels();
+MarkerMgr.deleteAllMarkers();
+core.goHome();
+core.setGuiVisible(false);
+
+LandscapeMgr.setCurrentLandscapeID ("jaipur");
+
+ids = blockText(Array("Place: Pune",
+                      "Date: xxxx, just before yyy.",
+                      "Orion and Gemini climb into the zzzz sky",
+                      "fading from view as the sky ooooo with",
+                      "the appearance of the Sun"));
+					  
+					  
+
+//var landscapeList = LandscapeMgr.getAllLandscapeIDs ();
+
+//for ( i = 0 ; i < landscapeList.length; i++) {
+//	core.debug(landscapeList[i]);
+//}
+core.wait(1);
+
+var landscapeId = LandscapeMgr.getCurrentLandscapeID ();
+
+core.debug(" Current Landscape " + landscapeId);
+
+
+hideLandscape();
+
+core.wait(1);
+
+clearLabels(ids);
+
+showLandscape();
+
+core.setGuiVisible(true);

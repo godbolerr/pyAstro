@@ -1,0 +1,44 @@
+core.setObserverLocation(
+	73.8567, // core.dmsToRad( 8, 36, 25.85 ), // longitude
+	18.5204, // core.dmsToRad(47, 32, 21.48 ), // latitude
+	0,                       // Altitude
+	6,                       // Time to travel
+   "Pune",                       // or "Irchelturm",
+   "Earth"                   // This parameter seems necessary
+);
+
+core.setMountMode("azimuthal");
+core.selectObjectByName("", false);
+core.setGuiVisible(true);
+
+LandscapeMgr.setFlagAtmosphere(false);
+LandscapeMgr.setFlagLandscape(true);
+LandscapeMgr.setFlagFog(false);
+
+ConstellationMgr.setFlagArt(false);
+ConstellationMgr.setFlagBoundaries(false);
+ConstellationMgr.setFlagLines(false);
+ConstellationMgr.setFlagLabels(false);
+StelSkyDrawer.setFlagStarMagnitudeLimit(true);
+StelSkyDrawer.setFlagNebulaMagnitudeLimit(true);
+//StelSkyDrawer.setCustomStarMagnitudeLimit(10.5);
+//StelSkyDrawer.setCustomNebulaMagnitudeLimit(10.5);
+
+StelMovementMgr.lookEast(true);
+core.setTimeRate(400);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

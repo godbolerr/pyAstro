@@ -1,0 +1,39 @@
+var info = LabelMgr.labelScreen("A motion of Mars", 20, 20,        false, 24, color);
+var apx = LabelMgr.labelScreen("Setup best viewing angle, FOV and date/time.", 20, 50, false, 18, color);
+LabelMgr.setLabelShow(info, true);
+LabelMgr.setLabelShow(apx, true);
+core.wait(2);
+LabelMgr.setLabelShow(apx, false);
+
+
+	if ((i % 10) == 0)
+	{
+	 var strDate = "Day " + i;
+	LabelMgr.setLabelShow(apx, false);
+	 var apx = LabelMgr.labelScreen(strDate, 20, 
+	  50, false, 16, color);
+	 LabelMgr.setLabelShow(apx, true);
+	 }
+       if (i == 75)
+       {
+           LabelMgr.deleteLabel(label);
+           label = LabelMgr.labelObject("  Retrograde or 
+                   opposite motion begins", "Mars", 
+                   true, 16, color, "SE");
+           core.wait(2);
+           LabelMgr.deleteLabel(label);
+           label = LabelMgr.labelObject("  Retrograde 
+                   motion", "Mars", true, 16, color, 
+                   "SE");
+       }
+       if (i == 160)
+       {
+           LabelMgr.deleteLabel(label);
+           label = LabelMgr.labelObject("  Normal motion 
+                   returns", "Mars", true, 16, color, 
+                   "SE");
+           core.wait(2);
+           LabelMgr.deleteLabel(label);
+           label = LabelMgr.labelObject("  Normal motion", 
+                   "Mars", true, 16, color, "SE");
+       }

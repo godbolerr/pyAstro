@@ -1,0 +1,17 @@
+// Custom Rashi Markers
+
+MarkerMgr.deleteAllMarkers();
+CustomObjectMgr.removeCustomObjects ();
+core.wait(1);
+CustomObjectMgr.addCustomObjectRaDec("मेष", "1h28m52s", "9d18m15s", true);
+CustomObjectMgr.addCustomObjectRaDec("वृषभ", "3h26m52s", "18d46m20s", true);
+CustomObjectMgr.addCustomObjectRaDec("मिथुन", "5h33m52s", "23d18m11s", true);
+CustomObjectMgr.addCustomObjectRaDec("कर्क", "7h43m52s", "21d18m30s", true);
+CustomObjectMgr.addCustomObjectRaDec("सिंह", "9h45m15s", "13d31m16s", true);
+CustomObjectMgr.addCustomObjectRaDec("कन्या", "11h37m58s", "2d22m58s", true);
+CustomObjectMgr.addCustomObjectRaDec("तुला", "13h28m52s", "-9d18m39s", true);
+CustomObjectMgr.addCustomObjectRaDec("वृश्चिक", "15h26m59s", "-18d46m39s", true);
+CustomObjectMgr.addCustomObjectRaDec("धनु", "17h33m51s", "-23d18m39s", true);
+CustomObjectMgr.addCustomObjectRaDec("मकर", "19h43m32s", "-21d18m39s", true);
+CustomObjectMgr.addCustomObjectRaDec("कुंभ", "21h45m15s", "-13d31m16s", true);
+CustomObjectMgr.addCustomObjectRaDec("मीन", "23h37m58s", "-2d22m58s", true);

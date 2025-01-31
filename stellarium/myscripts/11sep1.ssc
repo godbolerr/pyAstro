@@ -1,0 +1,12 @@
+SolarSystem.setFlagPlanets(true);
+SolarSystem.setLabelsAmount(10);   	
+SolarSystem.setFlagMoonScale(5); 
+LandscapeMgr.setCurrentLandscapeID("zero");
+core.selectObjectByName("Moon", true);
+ StarMgr.setLabelsAmount(4);
+core.setTimeRate(100);
+
+
+
+
+ 

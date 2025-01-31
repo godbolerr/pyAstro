@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>3</title>
+<style type="text/css">
+.auto-style1 {
+	font-size: x-large;
+	text-align: center;
+}
+.auto-style3 {
+	color: #000000;
+}
+.auto-style4 {
+	color: #800000;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: small;
+}
+.auto-style5 {
+	background-color: #C0C0C0;
+}
+.auto-style6 {
+	background-color: #CCFFFF;
+}
+.auto-style7 {
+	margin-bottom: 6px;
+}
+.auto-style8 {
+	text-align: center;
+}
+.auto-style9 {
+	color: #000000;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: small;
+}
+</style>
+</head>
+
+<body>
+
+<p class="auto-style1">&nbsp;Stellarium Key press Example FAQ&nbsp;<br />
+</p>
+<p class="auto-style4"><strong>Note:</strong> The following guide and example scripts are 
+designed for Windows using an American English Keyboard. They may not be 
+relevant or work on non-American Keyboards.&nbsp;&nbsp;</p>
+<p>One of the most common questions new Stellarium script developers have is "Is 
+there a way to record a key press in Stellarium". For example, say you have a 
+script of a series of astronomical events, instead of displaying them in set 
+intervals (like display event, wait 10 seconds, display next event, wait 10 
+seconds, display next, wait 10 secs, ... etc, etc.), can you instead give the 
+user more control and pause the script after each event and have the script wait 
+until the user presses a key to go on to the next event or go back (e.g Press "N" for next 
+event, Press "B" to go back).&nbsp; Or suppose you want to give the user an option by pressing a key 
+(e.g. Press "S" for Sun or "M" for Moon). Can it be done?</p>
+<p>The short answer is yes you can, however not directly, you have to use a "back-door / hack" 
+way to get a keypress, albeit within limitations.&nbsp;&nbsp;
+</p>
+<p>The long answer is unfortunately there are no simple functions in 
+Stellarium's scripting engine that can register a keypress. There's no 
+core.getKeypress() or core.waituntilkeypress() or inkey$ or KeyAscii or any other 
+equivalent available to use. </p>
+<p>However there are two indirect ways available. There are 
+certain keys assigned in Stellarium to control display and there are certain 
+keys that change the date. For example 
+pressing the A key toggles the Atmosphere on and off, pressing "B" toggles 
+Constellation Boundaries on &amp; off, pressing = advances one day, etc. Likewise 
+there are Stellarium script functions that will return the current display 
+option setting. For example the function LandscapeMgr.getFlagAtmosphere() will 
+tell you if the Atmosphere is currently on (true) or off (false). and 
+core.getJDay() will get you the current date.</p>
+<p>So knowing this, instead of having Stellarium "wait" for a key press, you can 
+instead use a "get" function to have Stellarium "watch" for the change in display 
+or change in date which happens when you press that key. You just have to use a key and script 
+"get" function that are related or the date keys.</p>
+<p><strong><span class="auto-style4">Note:</span></strong><span class="auto-style4"> 
+The biggest limitation of course is your choice of keys to use is limited, that 
+is not every key is assigned to change a 
+display setting and unfortunately the includes most of the good keys. There is no using 
+the Esc key, Backspace, Enter or the Space Bar. The "Y" key is unavailable so no pressing 
+for "Y" for "Yes", likewise no "J" key available to press "J" for Jupiter and there definitely is no way to do "Press Any 
+Key to Continue". Some keys like "D" and "N" even do the same thing.</span></p>
+<p class="auto-style9">The pros and cons of using the date. For starters you get 
+4 keys for one deal. Granted they are keys people are not normally used to 
+using, but you get used to them. Also you have to make sure to turn off any time 
+corrections (core.setDeltaTAlgorithm("WithoutCorrection") and if your script is 
+from some other place than Earth you have to adjust for different date lengths.</p>
+<p><span class="auto-style4"> 
+&nbsp;</span></p>
+<p>The idea is to </p>
+<ul>
+	<li>
+	<p class="auto-style7">Get the original/initial display setting </p>
+	</li>
+	<li>
+	<p class="auto-style7">Loop until the display setting changes 
+	which just so happens when you press the chosen key </p>
+	</li>
+	<li>
+	<p class="auto-style7">Set the display setting back to the original/initial
+	&nbsp;</p>
+	</li>
+</ul>
+<p>&nbsp;</p>
+<p>Well it's probably easiest to learn by doing, so included are simple scripts 
+show you how to do it</p>
+<p><strong>Keypress example (1) Press A.ssc </strong> </p>
+<p><strong>KeyPress example (2) Select Object.ssc</strong> - </p>
+<p><strong>Keypress example (3) Multiple keys go N or S.ssc </strong>-</p>
+<p class="auto-style9"><strong>Keypress example (4) Multiple keys Mars oppos.ssc</strong></p>
+<p><strong>Keypress example (5) Multiple keys Best 21st Century Oppositions.ssc</strong></p>
+<p><strong>Keypress example (6) Press Date Example.ssc</strong></p>
+<p><strong>Keypress example (7) Press Date - Oppositions of the 2020s.ssc</strong></p>
+<p class="auto-style9">&nbsp;</p>
+<p class="auto-style9">&nbsp;</p>
+<p>&nbsp;Below is the 1st and simplest example script to hopefully help . Keypress example (1) Press A.ssc. 
+</p>
+<p>The script text is on the left in grey and light blue for the hold for keypress part, my explanation/comments are the text to the right.&nbsp;&nbsp;&nbsp;
+</p>
+<p>&nbsp;</p>
+<table style="width: 100%">
+	<tr>
+		<td class="auto-style5" style="width: 649px">// Author: Qam1<br />
+		// Name: Press the A Key - Keypress Example 1 <br />
+		// License: Public Domain<br />
+		// Description: Wait until you Press the A key<br />
+		// Version: 1.0<br />
+		// <br />
+		// Made on Stellarium 16.1<br />
+		<br />
+		<br />
+		</td>
+		<td class="auto-style3">Just the Headers</td>
+	</tr>
+	<tr>
+		<td class="auto-style5" style="width: 649px">LabelMgr.deleteAllLabels();<br />
+&nbsp;<br />
+		</td>
+		<td class="auto-style3">Clear any left over text from previous 
+		scripts<br />
+		</td>
+	</tr>
+	<tr>
+		<td class="auto-style5" style="width: 649px">txt1 = LabelMgr.labelScreen("Hello 
+		Universe!", 400, 10, false, 30, "#00FFAA");<br />
+		LabelMgr.setLabelShow(txt1, true);<br />
+		<br />
+		txt1 = LabelMgr.labelScreen("Press the A Key to end this script", 400, 
+		40, false, 25, "#FF00AA");<br />
+		LabelMgr.setLabelShow(txt1, true);</td>
+		<td class="auto-style3">Some text and instructions for the user to press the A key
+		</td>
+	</tr>
+	<tr>
+		<td class="auto-style6" style="width: 649px">&nbsp;<br />
+		// Get Keypress A key<br />
+&nbsp;<br />
+		oa = LandscapeMgr.getFlagAtmosphere();<br />
+&nbsp;</td>
+		<td class="auto-style3">This is where getting a keypress starts<br />
+		<br />
+		The variable oa stands for "Original Atmosphere"<br />
+		<br />
+		LandscapeMgr.getFlagAtmosphere() will make oa = true if the Atmosphere 
+		is turned on or oa = false if it's turned off .<br />
+&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="auto-style6" style="width: 649px">kp = 0</td>
+		<td class="auto-style3">Variable kp will stand for Keypress, the number 
+		is arbitrary but for this script let's set it to 
+		zero. <br />
+&nbsp; </td>
+	</tr>
+	<tr>
+		<td class="auto-style6" style="width: 649px">&nbsp;// loop until 
+		keypress<br />
+		<br />
+		while (kp == 0)<br />
+		{<br />
+		core.wait(0.05);<br />
+		<br />
+		<br />
+		ca = LandscapeMgr.getFlagAtmosphere();<br />
+		<br />
+		if (ca != oa)<br />
+		{<br />
+		kp = 1<br />
+		} <br />
+		<br />
+		<br />
+		}<br />
+		<br />
+		<br />
+		</td>
+		<td class="auto-style3"><span class="auto-style3">Let the variable ca stand for "Current 
+		Atmosphere display"</span><br class="auto-style3" />
+		<br class="auto-style3" />
+		<span class="auto-style3">This section will repeat over &amp; over until you 
+		change the atmosphere display status, which will happen when you press 
+		the A key.&nbsp; </span><br class="auto-style3" />
+		<br class="auto-style3" />
+		<span class="auto-style3">Note. You need the core.wait(0.05) in Version 
+		1.0 and later or it will loop so fast that Stellarium will crash.</span><br class="auto-style3" />
+		<br class="auto-style3" />
+		<span class="auto-style3">For example if you started the program with 
+		the atmosphere on (oa = "true"), it's going to loop here over &amp; over 
+		while the atmosphere remains on (oa = true and ca = "true"). The moment 
+		the user presses the A key, the atmosphere will turn off, the 
+		LandscapeMgr.getFlagAtmosphere()function will read the atmosphere as 
+		being off and make the variable ca = "false", now ca will be not equal 
+		(!=) to oa so kp = 1, which will end the while (kp == 0) loop and the 
+		program will continue on. <br />
+		<br />
+		All this happened because the user pressed A.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></td>
+	</tr>
+	<tr>
+		<td class="auto-style6" style="width: 649px">// put it back<br />
+		<br />
+		LandscapeMgr.setFlagAtmosphere(oa);</td>
+		<td><span class="auto-style3">&nbsp;</span><br class="auto-style3" />
+		<span class="auto-style3">Last but not least. This puts the display 
+		settings back to the way they were originally.&nbsp; This is an 
+		important step as without it the user would find it very annoying if every time 
+		they pressed 
+		a key their chosen settings changed.</span><br class="auto-style3" />
+		<br class="auto-style3" />
+		<span class="auto-style3">Note: The time that passes from when the user 
+		presses the A key and the atmosphere turns on or off and this step which 
+		turns the atmosphere back to its original state is only a few 
+		milliseconds long. This is slow for a computer but still so fast that the user will most likely not even 
+		notice anything happened with the atmosphere or maybe worst case they 
+		might only just see a fast screen flicker.</span><br class="auto-style3" />
+		<span class="auto-style3">&nbsp;</span></td>
+	</tr>
+	<tr>
+		<td class="auto-style5" style="width: 649px">txt1 = LabelMgr.labelScreen("Yeah! 
+		You Pressed the A Key", 400, 100, false, 30, "#FFAAFF");<br />
+		LabelMgr.setLabelShow(txt1, true);<br />
+		<br />
+		txt1 = LabelMgr.labelScreen("Now the script will end, goodbye!", 400, 
+		140, false, 30, "#FFAAFF");<br />
+		LabelMgr.setLabelShow(txt1, true);<br />
+		<br />
+		<br />
+		<br />
+		core.wait(4);<br />
+		<br />
+		LabelMgr.deleteAllLabels()</td>
+		<td class="auto-style3">Some text to say good job and good bye</td>
+	</tr>
+	<tr>
+		<td class="auto-style5" style="width: 649px">&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+</table>
+
+<p>So there you go, a simple example&nbsp;</p>
+<p class="auto-style9">&nbsp;</p>
+<p class="auto-style4">&nbsp;</p>
+<p class="auto-style4"><strong>Note:</strong> Another limitation, as mentioned 
+the time time from when the user press the key and the script sets the display 
+setting back to the original is so fast that the user most likely won't notice. 
+This is true in most applications, but this way of getting a key press is slow 
+enough that you can't make a script that requires rapid key presses. So no 
+Stellarium Space Invaders or Stellarium Pac-Man scripts.&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+      <div class="auto-style8">
+      <TD></TD>
+    
+</div>
+    
+</body>
+
+</html>

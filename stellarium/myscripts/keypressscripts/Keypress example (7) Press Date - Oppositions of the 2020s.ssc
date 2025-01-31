@@ -1,0 +1,258 @@
+// Author: Qam1
+// Name: Example Keypress #7, Oppositions of the 2020's,  
+// License: Public Domain
+// Description: Oppositions of the 2020's, demostarted using the date keys
+// Version: 1.0
+// 
+// Made on Stellarium 16.1
+
+
+
+core.setDeltaTAlgorithm("WithoutCorrection"); // Alway include
+
+
+core.setTimeRate(0);
+
+
+id = new Array(length= 100);
+pname = new Array(length = 10);
+pcolor = new Array(length = 9);
+
+
+id[40] = "2020-10-14T00:01:00"
+id[41] = "None"
+id[42] = "2022-12-08T00:01:00"
+id[43] = "None"
+id[44] = "None"
+id[45] = "2025-01-16T00:01:00"
+id[46] = "None"
+id[47] = "2027-02-19T00:01:00"
+id[48] = "None"
+id[49] = "2029-03-25T00:01:00"
+
+
+
+id[50] = "2020-07-14T00:01:00"
+id[51] = "2021-08-19T00:01:00"
+id[52] = "2022-09-26T00:01:00"
+id[53] = "2023-11-02T00:01:00"
+id[54] = "2024-12-07T00:01:00"
+id[55] = "None";
+id[56] = "2026-01-10T00:01:00"
+id[57] = "2027-02-10T00:01:00"
+id[58] = "2028-03-12T00:01:00"
+id[59] = "2029-04-11T00:01:00"
+
+
+
+id[60] = "2020-07-20T00:01:00"
+id[61] = "2021-08-02T00:01:00"
+id[62] = "2022-08-14T00:01:00"
+id[63] = "2023-08-27T00:01:00"
+id[64] = "2024-09-08T00:01:00"
+id[65] = "2025-09-21T00:01:00";
+id[66] = "2026-10-04T00:01:00"
+id[67] = "2027-10-17T00:01:00"
+id[68] = "2028-10-30T00:01:00"
+id[69] = "2029-11-13T00:01:00"
+
+id[70] = "2020-10-31T00:01:00"
+id[71] = "2021-11-04T00:01:00" 
+id[72] = "2022-11-09T00:01:00"
+id[73] = "2023-11-13T00:01:00"
+id[74] = "2024-11-17T00:01:00"
+id[75] = "2025-11-21T00:01:00"
+id[76] = "2026-11-25T00:01:00"
+id[77] = "2027-11-30T00:01:00"
+id[78] = "2028-12-03T00:01:00"
+id[79] = "2029-12-08T00:01:00"
+
+
+
+id[80] = "2020-09-11T00:01:00"
+id[81] = "2021-09-14T00:01:00"
+id[82] = "2022-09-16T00:01:00"
+id[83] = "2023-09-19T00:01:00"
+id[84] = "2024-09-20T00:01:00"
+id[85] = "2025-09-23T00:01:00"
+id[86] = "2026-09-25T00:01:00"
+id[87] = "2027-09-28T00:01:00"
+id[88] = "2028-09-30T00:01:00"
+id[89] = "2029-10-02T00:01:00"
+
+
+pname[3] = "Neptune"; // bookend
+
+pname[4] = "Mars";
+pname[5] = "Jupiter";
+pname[6] = "Saturn";
+pname[7] = "Uranus" 
+pname[8] = "Neptune";
+
+pname[9] = "Mars";
+
+
+
+pcolor[4] = "#FF0000"
+pcolor[5] = "#CD853F"
+pcolor[6] = "#FFFF00"
+pcolor[7] = "#ADFF2F"
+pcolor[8] = "#4169E1"
+
+planet = 4
+year = 0
+last = 8
+lastplanet = ""
+
+ 
+// program
+
+while (1 == 1)
+{
+
+LabelMgr.deleteAllLabels();
+
+
+i = planet * 10 + year
+
+
+core.setDate(id[i], "local");
+od = Math.floor(core.getJDay());
+cd = od
+
+
+
+if (planet != lastplanet)
+{
+core.selectObjectByName(pname[planet], pointer = true);
+StelMovementMgr.setFlagTracking(true);
+}
+
+lastplanet = planet
+
+
+txt1 = LabelMgr.labelScreen("Year : " + (2020 + year) + " " + pname[planet], 500, 10, false, 35, pcolor[planet]);
+LabelMgr.setLabelShow(txt1, true);
+
+
+
+txt1 = LabelMgr.labelScreen("Press - for previous Opposition", 1000, 10, false, 20, pcolor[planet]);
+LabelMgr.setLabelShow(txt1, true);
+
+
+txt1 = LabelMgr.labelScreen("Press = for Next Opposition", 1000, 60, false, 20, pcolor[planet]);
+LabelMgr.setLabelShow(txt1, true);
+
+
+txt1 = LabelMgr.labelScreen("Press [ for last planet - " + pname[planet - 1], 1000, 110, false, 20, pcolor[planet]);
+LabelMgr.setLabelShow(txt1, true);
+
+
+txt1 = LabelMgr.labelScreen("Press ] for next planet - " + pname[planet + 1], 1000, 160, false, 20, pcolor[planet]);
+LabelMgr.setLabelShow(txt1, true);
+
+
+
+core.wait(1);
+
+
+
+while (cd == od)
+{
+cd = Math.floor(core.getJDay());
+core.wait(0.05);
+}
+
+
+
+kp = Math.floor((cd - od)+0.5);
+
+
+if (kp < -6)
+{
+planet = planet - 1
+year = 0
+
+if (planet < 4)
+{
+planet = last
+}
+
+}
+
+
+if (Math.floor(kp) < 0 && Math.floor(kp)>-6 )
+{
+
+year = year - 1
+
+if (year < 0)
+{
+year = 9
+}
+
+
+if (id[planet * 10 + year] == "None")
+{
+year = year - 1
+}
+
+
+if (id [planet * 10 + year] == "None") // Doubled to get Mars' 2 year Oppo gap 
+{
+year = year - 1
+}
+
+
+
+
+}
+
+
+
+if (Math.floor(kp) > 0 && Math.floor(kp)<6 )
+{
+
+year = year + 1
+
+if (year > 9)
+{
+year = 0
+}
+
+
+if (id [ planet * 10 + year] == "None")
+{
+year = year + 1
+}
+
+
+if (id [ planet * 10 + year] == "None") // Doubled to get Mars' 2 year Oppo gap 
+{
+year = year + 1
+}
+
+
+}
+
+
+
+if (kp > 6)
+{
+planet = planet + 1
+year = 0
+
+if (planet > last)
+{
+planet = 4
+}
+
+}
+
+
+
+
+} // loop
+
+ 
+

@@ -1,0 +1,95 @@
+
+
+// Initialization
+
+
+core.goHome();
+var JD = core.getJDay();
+var MyLocation = core.getObserverLocationInfo();
+var color = "#aa0000";
+core.setGuiVisible(false);
+ConstellationMgr.setFlagLines(false);
+ConstellationMgr.setFlagLabels(false);
+
+core.clear("natural");
+
+core.wait(1);
+
+
+var info = LabelMgr.labelScreen("A motion of Mars", 20, 20,        false, 24, color);
+var apx = LabelMgr.labelScreen("Setup best viewing angle, FOV and date/time.", 20, 50, false, 18, color);
+LabelMgr.setLabelShow(info, true);
+LabelMgr.setLabelShow(apx, true);
+core.wait(2);
+LabelMgr.setLabelShow(apx, false);
+
+
+// Applicable Date
+
+core.setDate("2022-10-30T10:00:00");
+
+
+
+
+LandscapeMgr.setFlagLandscape(false);
+LandscapeMgr.setFlagAtmosphere(false);
+SolarSystem.setFlagIsolatedTrails(true);
+SolarSystem.setFlagTrails(true);
+StelMovementMgr.setFlagLockEquPos(true);
+
+core.selectObjectByName("Mars", true);
+
+StelMovementMgr.zoomTo(40, 1);
+
+
+// core.moveToRaDec("05h40m49s", "+23d47m57s",1);
+core.moveToRaDec("05h40m49s", "+23d47m57s",1);
+
+core.wait(1);
+
+
+
+var label = LabelMgr.labelObject("Normal motion, West to  East", "Mars", true, 16, color, "SE");
+
+for (i=0; i<100; i++)
+{
+    core.setDate("+ 1 days");
+
+	if ((i % 10) == 0)
+	{
+	 var strDate = "Day " + i;
+       LabelMgr.setLabelShow(apx, false);
+	 var apx = LabelMgr.labelScreen(strDate, 20, 	  50, false, 16, color);
+	 LabelMgr.setLabelShow(apx, true);
+	 }
+       if (i == 75)
+       {
+           LabelMgr.deleteLabel (label);
+           label = LabelMgr.labelObject("  Retrograde or                    opposite motion begins", "Mars", 
+                   true, 16, color, "SE");
+           core.wait(2);
+           LabelMgr.deleteLabel (label);
+           label = LabelMgr.labelObject("  Retrograde                    motion", "Mars", true, 16, color, 
+                   "SE");
+       }
+       if (i == 160)
+       {
+           LabelMgr.deleteLabel(label);
+           label = LabelMgr.labelObject("  Normal motion                    returns", "Mars", true, 16, color, 
+                   "SE");
+           core.wait(2);
+           LabelMgr.deleteLabel(label);
+           label = LabelMgr.labelObject("  Normal motion", 
+                   "Mars", true, 16, color, "SE");
+       }
+
+
+     core.wait(0.2);
+}
+
+core.clear("natural");
+LabelMgr.deleteAllLabels();
+MarkerMgr.deleteAllMarkers();
+core.goHome();
+core.setGuiVisible(true);
+

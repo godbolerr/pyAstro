@@ -1,0 +1,14 @@
+Retrograde Motion Demostrator
+
+Current version 1.0
+
+
+Note
+
+* This script will only work with Stellarium versions 0.12.3 and later. It uses a new command that wasn't valid in previous versions of Stellarium.
+
+* Only works on Earth
+
+* It's accurate to the nearest hour. You can modify the script to increase accuracy to the minute, but script will be slower
+
+ 

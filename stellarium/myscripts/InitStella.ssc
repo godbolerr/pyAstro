@@ -1,0 +1,6 @@
+// My first script
+
+
+include("stellaCommon.ssc");
+
+initStellarium();

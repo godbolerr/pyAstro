@@ -1,0 +1,134 @@
+// Author: Qam1
+// Name: Keypress Example #4 - Mars Oppositions
+// License: Public Domain
+// Description: Martian Oppositions High to low then back to high. Mars Oppositions cycle 15-17 years going from a bright close perihelion opposition to dimmer & farther oppositions until "bottoming out" at the dimmest & farther aphelion opposition, then each Mars'opposition brightens until peaking again at a close perihelion opposition.
+// 
+// Made on Stellarium 19.1
+
+
+LabelMgr.deleteAllLabels();
+
+
+oppo = new Array(length= 8);
+
+oppo[1] = "2018-07-27T00:00:00"
+oppo[2] = "2020-10-14T00:00:00"
+oppo[3] = "2022-12-08T00:00:00"
+oppo[4] = "2025-01-16T00:00:00"
+oppo[5] = "2027-02-19T00:00:00"
+oppo[6] = "2029-03-25T00:00:00"
+oppo[7] = "2031-05-04T00:00:00"
+oppo[8] = "2033-06-27T00:00:00"
+oppo[9] = "2035-09-15T00:00:00"
+	
+
+
+
+txt1 = LabelMgr.labelScreen("Next Opposition Press N", 400, 10, false, 20, "#FF0000");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Go back to last Opposition Press B", 400, 40, false, 20, "#FF7777");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Quit - Press Q", 400, 70, false, 20, "#FFFF77");
+LabelMgr.setLabelShow(txt1, true);
+
+i = 1
+q = 0
+
+core.wait(.1);
+
+od = NebulaMgr.getFlagHints();
+ob = ConstellationMgr.getFlagBoundaries(); 
+oq = LandscapeMgr.getFlagCardinalPoints();
+
+
+
+while (q == 0)
+{
+
+core.setDate(oppo[i], "local");
+core.selectObjectByName("Mars", pointer = true);
+StelMovementMgr.setFlagTracking(true);
+
+
+kp = 0;
+
+while (kp == 0)
+{
+core.wait(0.05);
+
+cd = NebulaMgr.getFlagHints();
+
+if (cd != od)
+{
+kp = 1
+}
+
+
+cb = ConstellationMgr.getFlagBoundaries(); 
+
+if (cb != ob)
+{
+kp = 2
+}
+
+
+cq = LandscapeMgr.getFlagCardinalPoints();
+
+if (cq != oq)
+{
+kp = 3
+}
+
+
+}
+
+
+// set 'em back
+
+
+NebulaMgr.setFlagHints(od);
+ConstellationMgr.setFlagBoundaries(ob); 
+LandscapeMgr.setFlagCardinalPoints(oq);
+
+
+
+
+
+if (kp == 1)
+{
+i = i + 1
+
+if (i > 9)
+{
+i = 9
+}
+
+
+}
+
+
+if (kp == 2)
+{
+i = i -1
+
+if (i < 1)
+{
+i = 1
+}
+
+
+}
+
+
+if (kp == 3)
+{
+q = 1
+}
+
+} // loop
+
+LabelMgr.deleteAllLabels();
+
+

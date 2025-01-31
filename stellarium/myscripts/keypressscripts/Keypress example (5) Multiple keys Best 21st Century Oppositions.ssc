@@ -1,0 +1,191 @@
+// Author: Qam1
+// Name: Keypress #5 - Best 21st Century Oppositions 
+// License: Public Domain
+// Description: Pick which best 21st Century Opposition to see
+// Version: 1.0
+// 
+// Made on Stellarium 16.1
+
+
+LabelMgr.deleteAllLabels();
+
+core.setDate("2020-01-01T00:00:00", "local");
+ 
+
+txt1 = LabelMgr.labelScreen("Do you want to see Mars' Best 21st Century Opposition press A", 400, 10, false, 20, "#FF0000");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Do you want to see Jupiter's Best 21st Century Opposition press B", 400, 40, false, 20, "#FF7777");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Do you want to see Saturn's Best 21st Century Opposition press C", 400, 70, false, 20, "#FFFF77");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Do you want to see Uranus' Best 21st Century Opposition press D", 400, 100, false, 20, "#00FF00");
+LabelMgr.setLabelShow(txt1, true);
+
+
+txt1 = LabelMgr.labelScreen("Do you want to see Neptune's Best 21st Century Opposition press E", 400, 130, false, 20, "#0000FF");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Do you want to see Pluto's Best 21st Century Opposition press F", 400, 160, false, 20, "#0077FF");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Press Q to Quit", 400, 200, false, 20, "#FFFFFF");
+LabelMgr.setLabelShow(txt1, true);
+
+
+
+
+q = 0
+
+while (q == 0)
+{
+
+core.wait(0.05);
+
+oa = LandscapeMgr.getFlagAtmosphere();
+ob = ConstellationMgr.getFlagBoundaries(); 
+oc = ConstellationMgr.getFlagLines();
+od = NebulaMgr.getFlagHints();
+oe = GridLinesMgr.getFlagEquatorGrid();
+of = LandscapeMgr.getFlagFog();
+oq = LandscapeMgr.getFlagCardinalPoints();
+
+
+kp = 0;
+
+
+
+while (kp == 0)
+{
+
+
+ca = LandscapeMgr.getFlagAtmosphere();
+
+if (ca != oa)
+{
+kp = 1
+}
+
+
+cb = ConstellationMgr.getFlagBoundaries();
+
+if (cb != ob)
+{
+kp = 2
+}
+
+
+cc = ConstellationMgr.getFlagLines();
+
+if (cc != oc)
+{
+kp = 3
+}
+
+
+
+cd = NebulaMgr.getFlagHints();
+
+if (cd != od)
+{
+kp = 4
+}
+
+
+ce = GridLinesMgr.getFlagEquatorGrid();
+
+if (ce != oe)
+{
+kp = 5
+}
+
+
+cf = LandscapeMgr.getFlagFog();
+
+if (cf != of)
+{
+kp = 6
+}
+
+
+cq = LandscapeMgr.getFlagCardinalPoints();
+
+if (cq != oq)
+{
+kp = 7
+}
+
+
+
+}
+
+
+// set 'em back
+
+LandscapeMgr.setFlagAtmosphere(oa);
+ConstellationMgr.setFlagBoundaries(ob); 
+ConstellationMgr.setFlagLines(oc);
+NebulaMgr.setFlagHints(od);
+GridLinesMgr.setFlagEquatorGrid(oe);
+LandscapeMgr.setFlagCardinalPoints(oq);
+
+
+
+
+if (kp == 1)
+{
+core.setDate("2003-08-28T00:00:00", "local");
+core.selectObjectByName("Mars", pointer = true);
+}
+
+
+if (kp == 2)
+{
+core.setDate("2046-10-07T00:00:00", "local");
+core.selectObjectByName("Jupiter", pointer = true);
+}
+
+
+if (kp == 3)
+{
+core.setDate("2032-12-24T00:00:00", "local");
+core.selectObjectByName("Saturn", pointer = true);
+}
+
+if (kp == 4)
+{
+core.setDate("2051-03-14T00:00:00", "local");
+core.selectObjectByName("Uranus", pointer = true);
+}
+
+
+if (kp == 5)
+{
+core.setDate("2041-10-29T00:00:00", "local");
+core.selectObjectByName("Neptune", pointer = true);
+}
+
+
+if (kp == 6)
+{
+core.setDate("2000-06-02T00:00:00", "local");
+core.selectObjectByName("Pluto", pointer = true);
+}
+
+
+if (kp == 7)
+{
+q = 1 // quit
+}
+
+
+StelMovementMgr.setFlagTracking(true);
+
+
+} // q to repeat or quit
+
+LabelMgr.deleteAllLabels();
+
+

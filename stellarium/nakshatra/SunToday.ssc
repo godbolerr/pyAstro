@@ -1,0 +1,44 @@
+// Author: John Doe
+// License: Public Domain
+// Version: 1.0
+// Shortcut: Ctrl+M
+// Description: Where is Sun Today
+//
+
+include("commonFunctions.ssc");
+
+core.clear("natural");
+core.setGuiVisible(true);
+LabelMgr.deleteAllLabels();
+MarkerMgr.deleteAllMarkers();
+LandscapeMgr.setFlagCardinalPoints(true);
+ConstellationMgr.setFlagIsolateSelected(true);
+ConstellationMgr.setFlagBoundaries(false);
+ConstellationMgr.setFlagLines(true);
+LandscapeMgr.setFlagLandscape(true);
+LandscapeMgr.setFlagAtmosphere(false);
+core.setDiskViewport(false);
+
+GridLinesMgr.setFlagEclipticLine(true);
+//GridLinesMgr.setFlagAzimuthalGrid(true);
+GridLinesMgr.setFlagMeridianLine(true);
+core.wait(0.4);
+//StelMovementMgr.autoZoomIn(3);
+
+
+// Pune Location
+
+core.setObserverLocation(
+   puneLongitude,                     // longitude (E-W)
+   puneLatitude,                      // latitude  (N-S) / Polar circle
+   0                                  // Altitude
+);
+core.setDate("now");
+core.selectObjectByName("Sun", false);
+core.setTimeRate(1000);
+
+core.wait(5);
+core.setTimeRate(1);
+//core.goHome();
+core.setGuiVisible(true);
+

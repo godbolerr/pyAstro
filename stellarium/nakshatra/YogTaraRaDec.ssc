@@ -1,0 +1,15 @@
+// Name: YogTara of all Nakshatras
+// Author: Ravindra Godbole
+// License: Public Domain
+// Description: This script displays the Yogatara of each Nakshatra.
+//
+include("nakshatras.inc");
+
+for(i=0; i<yogataras.length; i++)
+{
+	var info = core.getObjectInfo(yogataras[i][3]);
+	var raJ2000 = info.raJ2000;
+	var decJ2000 = info.decJ2000;
+	core.output(yogataras[i][1] + " , " + yogataras[i][5] +"," +raJ2000+","+decJ2000 );
+	
+}

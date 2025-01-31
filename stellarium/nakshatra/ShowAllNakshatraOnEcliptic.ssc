@@ -1,0 +1,105 @@
+// Name: YogTara of all Nakshatras
+// Author: Ravindra Godbole
+// License: Public Domain
+// Description: This script displays the Yogatara of each Nakshatra.
+//
+include("nakshatras.inc");
+LabelMgr.deleteAllLabels();
+MarkerMgr.deleteAllMarkers();
+CustomObjectMgr.removeCustomObjects ();
+core.wait(2);
+ConstellationMgr.setFlagIsolateSelected(false);
+ConstellationMgr.setFlagArt(false);
+ConstellationMgr.setFlagLabels(false);
+ConstellationMgr.setArtIntensity(0.7);
+core.setGuiVisible(false);
+GridLinesMgr.setFlagHorizonLine(true);
+LandscapeMgr.setFlagCardinalPoints(true);
+
+function showYogTara()
+{
+	for(i=0; i<yogataras.length; i++)
+	{
+		showNakshatraOnEcliptic(yogataras,120,i);
+		core.wait(0.1);
+	}
+}
+
+function addRashiMarkers()
+{
+
+	CustomObjectMgr.setMarkersSize(7.0);
+	CustomObjectMgr.addCustomObjectRaDec("मेष", "1h28m52s", "9d18m15s", true);
+	core.wait(0.1);
+	CustomObjectMgr.addCustomObjectRaDec("वृषभ", "3h26m52s", "18d46m20s", true);
+	core.wait(0.1);
+	CustomObjectMgr.addCustomObjectRaDec("मिथुन", "5h33m52s", "23d18m11s", true);
+	core.wait(0.1);
+	CustomObjectMgr.addCustomObjectRaDec("कर्क", "7h43m52s", "21d18m30s", true);
+	core.wait(0.1);
+	CustomObjectMgr.addCustomObjectRaDec("सिंह", "9h45m15s", "13d31m16s", true);
+	core.wait(0.1);
+	CustomObjectMgr.addCustomObjectRaDec("कन्या", "11h37m58s", "2d22m58s", true);
+	core.wait(0.1);
+	CustomObjectMgr.addCustomObjectRaDec("तुला", "13h28m52s", "-9d18m39s", true);
+	core.wait(0.1);
+	CustomObjectMgr.addCustomObjectRaDec("वृश्चिक", "15h26m59s", "-18d46m39s", true);
+	core.wait(0.1);
+	CustomObjectMgr.addCustomObjectRaDec("धनु", "17h33m51s", "-23d18m39s", true);
+	core.wait(0.1);
+	CustomObjectMgr.addCustomObjectRaDec("मकर", "19h43m32s", "-21d18m39s", true);
+	core.wait(0.1);
+	CustomObjectMgr.addCustomObjectRaDec("कुंभ", "21h45m15s", "-13d31m16s", true);
+	core.wait(0.1);
+	CustomObjectMgr.addCustomObjectRaDec("मीन", "23h37m58s", "-2d22m58s", true);
+
+
+}
+
+
+
+
+
+
+
+
+
+
+//core.setDate("2023:10:16T22:48:49");
+//core.clear("deepspace");
+//core.moveToRaDec("17h 53m 0s", "66d 25m 0s");
+//StelMovementMgr.zoomTo(220, 5);
+core.wait(5);
+GridLinesMgr.setFlagEclipticLine(true);
+core.wait(1);
+ConstellationMgr.setFlagBoundaries(false);
+core.wait(1);
+
+ConstellationMgr.setFlagIsolateSelected(false);
+ConstellationMgr.setFlagArt(false);
+ConstellationMgr.setFlagLabels(false);
+ConstellationMgr.setArtIntensity(0.7);
+core.setGuiVisible(false);
+
+
+
+//core.selectObjectByName("Moon", true);
+
+////for (i=1; i<31; i++)
+//{
+//       
+//	var id = LabelMgr.labelScreen("Day " + i , 100, 320, false, 30, "#00AAFF");
+//	LabelMgr.setLabelShow(id, true);
+//    core.setDate("+ 1 days");
+//	core.wait(3);
+//    LabelMgr.setLabelShow(id, false);
+//}
+
+
+
+
+
+
+
+
+	

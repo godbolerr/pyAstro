@@ -1,0 +1,286 @@
+<HTML>
+<HEAD>
+  <TITLE>Stars and Planets conjunctions</TITLE>
+</style>
+</HEAD>
+<BODY BGCOLOR="#ffffff" TEXT="#000000">
+<P ALIGN=Center>
+<BIG><BIG>&nbsp;Planetary Events Scripts </BIG></BIG>&nbsp;
+<P ALIGN=Center>
+Version 2.5<P style="font-size: medium">
+<BIG><BIG>Files</BIG></BIG><BR>
+<P>
+<span class="auto-style1">
+<FONT COLOR="#800000">1) Mercury Events.ssc (3)<br>4) Venus Events.ssc (3)</FONT><BR>
+</span>
+<FONT COLOR="#800040" style="color: #800040; " class="auto-style1">7) Mars Events.ssc 
+(3)<BR>
+10) Jupiter Events.ssc<BR>
+11) Saturn Events.ssc<br>12) Uranus Events.ssc<br>13) Neptune Events.ssc</FONT><P style="font-size: medium">
+<BR>
+&nbsp;Instructions: <BR>
+1) Download zip file<BR>
+2) Extract the files <BR>
+3) Run Stellarium <BR>
+4) Run scripts<BR>
+5) Run file<BR>
+<br>6) From Main Menu<BR>
+<br>Press = or - to toggle choices<BR>
+Press [ to select choice and run in Key press mode <BR>
+Press ] to select choice and run in Screensaver Mode <BR>
+<br>7) When running Key press mode<BR>
+Press = to go to the next conjunction<BR>
+Press - to go to the previous one<BR>
+Press [ to start over (at the original date)<BR>
+Press ] to go back to Main Menu<BR>
+<br>8) When running Screensaver mode<BR>
+Press any date key = - [ ] to return to main menu<BR>
+<P>
+<BIG><B>General Notes:</B></BIG>
+<P>
+*********
+<P>
+New in Version 2.5<P>
+* Reduced File size and memory requirements<br>* Fixed Mercury Menu bug<br>* 
+Fixed Venus Menu bug<br>* Added more Deneb Algedi conjunctions to Mars script<P>
+&nbsp;<P>
+New in Version 2.4<P>
+* Added Moon Events to all scripts 
+<P>
+New in Version 2.3<br><br>* Added Neptune Events script<br>* Added more star 
+conjunctions to Jupiter &amp; Uranus scripts 
+<P>
+<br>New in Version 2.2<br><br>* Added Uranus Events script 
+<P>
+New in Version 2.1<P>
+* Added Mercury Events scripts<br>* Divided Mars &amp; Venus Scripts in small, 
+medium, large files (See below)<br>* Added more Menu choices in Venus script<br>* 
+Added more Menu choices in Mars script<br>* Added Farthest Distances, Greatest &amp; 
+Dimmest Brilliancies, Brilliancy milestones to Mars Script<br>* Added Venus 
+Conjunctions to Mars script - Somehow they were inadvertently left out<P>
+&nbsp;<P>
+New in Version 2.0
+<P>
+* Added Saturn events<br>* Added Venus dimmest brilliancies<br>* Scripts 
+Determine Latitude and Longitude accurately<br>* Determines best viewing time 
+nearest to event from observer location<br>* User can change Latitude and 
+Longitude while running script<br>* Added light travel times<br>* Added more star conjunctions<P>
+****<P>
+There are 3 versions each of the Mercury, Venus and Mars scripts. Small, Medium 
+and Large. Each planet's scripts are identical except for the date range of the 
+events. They all start with the year 2000 and all the large scripts ends at the year 3000. 
+The smaller and medium in scripts end years earlier.<P>
+The reason to have three is because Stellarium is a memory hog, and 
+unfortunately on some computers, having a more events means a larger script file which 
+can cause Stellarium 
+to run bad and/or crash. 
+<P>
+For the Jupiter, Saturn, Uranus and Neptune scripts, 
+there's no reason to do this as their slower rotation around the sun means fewer 
+events which equals a smaller file size.<P>
+***********&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <P>
+Conjunctions: The definition of conjunctions used in this script is 
+Conjunctions are the closest approach two bodies come to each other. Another 
+definition of Conjunction often is used is the time two bodies are at the same 
+Right Ascension. So the time of a conjunction here might not match other 
+sources.<P>
+Conjunction cut off: For bright stars Aldebaran, Antares, Regulus, Spica, 
+Pleiades I use 6.5° as the cut off for what's a conjunction or not, dimmer stars 
+&amp; nebula I use 1°, the tiny crab nebula I use 0.1°&nbsp; 
+<P>
+I excluded all Mercury, Venus, Mars and star conjunctions where they are less than
+12&#176; from the sun, If I included them there would be 3x as many conjunctions
+and the script would be cluttered with conjunctions you wouldn't be able
+to see anyhow.
+<P>
+***********
+<P>
+The Scripts will attempt to display the closest and best 
+viewing time for the Latitude and Longitude. It mostly gets it right.<P>
+The information shown for each event are for the time of the event. The Planet 
+might be in a slightly different position when&nbsp;the event displays&nbsp;&nbsp;&nbsp; 
+<P>
+The Exceptions are transits of the sun by Mercury and Venus, the scripts will go 
+to the exact time of the transit, even if it is below the horizon 
+<P>
+****<P>
+Moon<P>
+In version 2.4 Moon Conjunctions were added to the scripts<P>
+Moon conjunctions don't go to the year 3000 yet. I calculated the conjunction 
+times using Stellarium and it takes about 10 hours to calculate 100 years. As 
+such I didn't complete them and the Conjunctions only go to years 2100 - 2200.<P>
+&nbsp; Moon conjunction times and separation angle was calculated from Long 0 
+and Lat 0 without the ground. Times and separation angles might be slightly 
+different at other locations.&nbsp;&nbsp;&nbsp; 
+<P>
+&nbsp;<P>
+Magnitudes: 
+<P>
+You would think this would be easy to calculate and there would be 
+one simple universal way to calculate magnitudes of the planets. This is not 
+true however and magnitude values vary from source to source.&nbsp;&nbsp;For example some 
+sources claim Venus max brightness is -4.4 while others have it at -4.9 and 
+everything in between. As such my calculations for the planets maybe slightly 
+different than Stellarium (I don't know the numbers/calculations they use). For 
+example where as in Stellarium Venus' brightest magnitudes are about -4.55 mine 
+are about -4.85. Jupiter and Earth (though not the moon) also come out slightly 
+different in my calculations. I base my calculations off&nbsp;the
+<a href="http://ssd.jpl.nasa.gov/horizons.cgi#top">JPL Horizons site </a>&nbsp;and my 
+magnitudes seems to match theirs.<P>
+The biggest difference of all though is Saturn, Stellarium doesn't factor ring tilt when 
+calculating magnitude where my scripts do. So the more the rings are tilted the 
+bigger the difference between my script and Stellarium.
+Uranus' rings are too faint to have any effect on it's brightness as seen from 
+earth.<P>
+Mars' Magnitudes are also slightly different (Between .1 &amp; .2 Mag) from the 
+script and Stellarium. As such Brilliancy milestones (i.e. Brightens to -1) are 
+slightly different from Stellarium's numbers.<P>
+Even though Magnitude numbers might be different, regardless of the number, 
+greatest &amp; dimmest brilliancies dates are the same.<P>
+*****<P>
+Venus Cycles: Venus has 5 cycles that repeat every 8 years. Surprisingly no has 
+named them. Being Venus is the Goddess of Love and &quot;Amore&quot; is Latin for love and 
+has 5 letters, I called the cycle by each letter A-M-O-R-E. Each cycle begins at 
+Superior Conjunction and the 1st &quot;A&quot; cycle was the cycle Venus was in 1/1/2000. 
+<P>
+Mercury has 3 cycles that repeat closely repeat every year. I named these 1-2-3. 
+The 1st cycle was the cycle Mercury was in 1/1/2000. 
+<P>
+****<P>
+Mars Opposition, Closest Approach and Greatest Brilliancy: 
+<P>
+You would think they 
+would all be at the same time. But they are not, the date Mars makes it's 
+closest approach to Earth is different from it's opposition date, this 
+difference can be<font size="4"> ±</font> a couple of days to up to
+<font size="4">±</font> a week. You would also think Mars' greatest Brilliancy 
+would be during it's closest approach being closer = brighter.&nbsp; Not 
+exactly, because during opposition Mars' phase is more fuller and fuller phase = 
+brighter. So due to phase versus closeness, Mars' greatest brilliancy will occur 
+between opposition and closest approach. Since phase changes have more of an 
+effect (think Full Moon vs ½ Moon), Mars' greatest brilliancy will be closer to 
+it's opposition date.<P>
+Jupiter's opposition &amp; closest approach are about 1 day apart. Both are included 
+in the script. Jupiter's Greatest Brilliancy is minutes/hours after opposition, 
+but the magnitude difference between Opposition, Greatest Brilliancy &amp; Closest 
+approach is so miniscule that it really wasn't worth it to include Greatest 
+Brilliancy in the script.<P>
+The other outer planets Opposition, Greatest Brilliancy and Closest Approach 
+all occur within minutes of each other so there's little point in including all 
+of them and only opposition is in the scripts.&nbsp;&nbsp;&nbsp; 
+<P>
+*****<p>Mars' Dimmest Brilliancy is not always near Superior conjunction or when 
+Mars is furthest away from Earth. Due to a combo of phase and distance Mars' 
+dimmest brilliancy can occur anytime when it is from 0° up to near 50° 
+elongation from the sun.&nbsp; There's always a morning/western dimmest 
+brilliancy, however sometimes there isn't a evening/eastern one, that is Mars 
+will continue to dim right up to and through Superior conjunction and be at it's 
+dimmest sometime on the morning/western side.&nbsp; </p>
+<p>********</p>
+<p>Mercury's Potential Best: <br><br>Unlike Venus &amp; Mars, Mercury's brightest 
+magnitude is always near Superior Conjunction. This is because at Mercury's 
+distance from Earth, what phase Mercury is in is pretty much the only factor in 
+what magnitude is it. At Superior Conjunction it is 100% full while at Inferior 
+Conjunction it is 0%, so after Superior Conjunction even though it gets closer &amp; 
+closer to Earth, Mercury continually dims up to Inferior Conjunction and then 
+likewise after Inferior Conjunction as Mercury gets farther &amp; farther it still 
+continually brightens until Superior Conjunction.</p>
+<p>This makes Mercury difficult to observe. When it is brightest, it's lost in 
+the glare of the sun and when it is at it greatest elongation it is dim. So 
+Mercury's potential best viewing time is when it is far enough to be out of the 
+solar glare but close enough to be at a bright phase. </p>
+<p>This time is subjective, but for the script I chose when Mercury is at 18° 
+elongation on the far side of the sun. It phase is equivalent to a gibbous moon 
+and at 18° when Mercury would be still up after Astronomical Twilight if it 
+rides high in the Northern Hemisphere or runs low in the Southern Hemisphere&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+<p>*******</p>
+<p>Transit: When the body crosses the meridian. </p>
+<p>Elongation: The separation &nbsp;in degrees between the planet and sun. </p>
+<p>RA Elongation: The Right Ascension separation between sun and body </p>
+<p>Magnitude: The brightness of the planet. </p>
+<p>Rides High / Runs Low: This is the declination difference between the sun and 
+planet. When the planet rides high it is above the sun, runs low it is below. In 
+the Northern Hemisphere when the planet (especially inferior ones) &quot;rides high&quot; 
+it is more easily viewable and when it runs low even though it might have a 
+large elongation from the sun it could be hard to view. In the Southern 
+Hemisphere the opposite is true so &quot;runs low&quot; is better. </p>
+<p>Ring Tilt: The tilt of Saturn's rings. Heliocentric is the tilt as seen from 
+the sun. Geocentric is the tilt from the Earth.</p>
+<p>Phase Angle: This is the angle from the planet to the sun and earth. Range is 
+from °0 to 180°. If it's zero the planet appears &quot;full&quot;, if it's 90 degrees it 
+appears &quot;half&quot;, and if it's 180 degrees it appears &quot;new&quot;. Only the Moon and 
+Mercury and Venus can have phase angles exceeding about 50 degrees. 
+Interestingly the phase angle is also the elongation from the sun the earth 
+would be if you were on the planet. </p>
+<p>Earth Shine: This is the phase the Earth would be if you were on the planet
+</p>
+<p>Earth Mag: This is the magnitude the Earth would if you were on the planet
+</p>
+<p>Moon Mag: This is the magnitude the moon would be if you were on the planet
+</p>
+<P>
+You can zoom in and out of scripts as you see fit.
+<P>
+**********
+<P>
+There are two modes to select Key Press Mode and Screensaver Mode
+<P>
+Key press mode, the conjunction will display until you press one of the =
+- [ ] keys
+<P>
+Screen Saver Mode&nbsp;the script will behave<B> LIKE</B> a screensaver.
+<P>
+Keyword LIKE, it doesn't work exactly like a screensaver,
+<P>
+When you select screensaver mode, up will pop the 1st conjunction, the program
+will hold for 3 seconds (This is the default time, you can edit this time
+in the script file if you wish) and then go to the next conjunction and again
+hold for 3 seconds and then the next conjunction and on and on.
+<P>
+To leave the screen saver, unlike "real" screensavers pressing any key &nbsp;or
+moving the mouse will not cause the screensaver to end, with these scripts
+only changing the date by pressing the dates keys will cause the screensaver
+to end.&nbsp;
+<P>
+*****************
+<P>
+All these scripts will start at the next up coming event.
+<P>
+For example with Mars Events script file<BR>
+On 10/1/2015 it should start with the Antares - Mars conjunction on 10/20/2015<BR>
+On 10/20/2015 it should still start with the conjunction on 10/20/2015<BR>
+But on 10/21/2015 the program will then start with the Mars - Mercury 
+conjunction on 11/6/2015
+<P>
+If you want to start on a different date, just adjust the date to where you
+want to start&nbsp;in the main menu
+<P>
+****************
+<p>&nbsp;These&nbsp; scripts were designed to be used with landscapes that have 
+minimal obstructions on the horizon </p>
+<P>
+*****************
+<P>
+No I didn't type all these years and times out. I wrote a computer program
+based on Paul Schlyter's work at
+<P>
+<A HREF="http://www.stjarnhimlen.se/comp/ppcomp.html">http://www.stjarnhimlen.se/comp/ppcomp.html</A><BR>
+<P>
+which produced all these values.
+<P>
+*******************
+<P>
+My dates I calculated do seem to match other dates from a wide variety of
+sources, but I make no guarantee on accuracy.
+<P>
+I'm sure accuracy decreases the further back or forward in time any given
+script goes.
+<P>
+<BR>
+*********
+<P>
+I can be emailed at <A href="mailto:qam1@aol.com">qam1@aol.com</A>
+<P ALIGN=Center>
+<A HREF="http://www.lowerwolfjaw.com/astro/Stellarium/">
+<IMG src="../wfback.jpg" width="69" height="40" style="border-width: 0px"></A>
+</BODY></HTML>

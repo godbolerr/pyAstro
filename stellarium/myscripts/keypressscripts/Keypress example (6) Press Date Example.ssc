@@ -1,0 +1,90 @@
+// Author: Qam1
+// Name: Keypress #6 Example - Pressing the date
+// License: Public Domain
+// Description: Wait until you Press a date key
+// Version: 1.0
+// 
+// Made on Stellarium 16.1
+
+
+LabelMgr.deleteAllLabels();
+
+
+txt1 = LabelMgr.labelScreen("Hello Universe", 400, 10, false, 30, "#00FFAA");
+LabelMgr.setLabelShow(txt1, true);
+
+
+txt1 = LabelMgr.labelScreen("Press a date key -, =, [ or ] key to end this script", 400, 40, false, 25, "#FF00AA");
+LabelMgr.setLabelShow(txt1, true);
+
+
+core.setDeltaTAlgorithm("WithoutCorrection"); // Always include when using date keypress
+
+
+core.setTimeRate(0);
+ // Always include when using date keypress
+
+
+
+ 
+od = core.getJDay();
+rod = Math.floor(od);
+cd = rod;
+
+
+core.wait(.2);
+
+
+while (cd == rod)
+{
+
+cd = Math.floor(core.getJDay());
+core.wait(0.1);
+
+}
+
+
+core.setJDay(od);
+
+kp = Math.floor(cd - rod);
+
+txt1 = LabelMgr.labelScreen(kp, 10, 550, false, 30, "#FFAAFF");
+LabelMgr.setLabelShow(txt1, true);
+
+if (kp == -7)
+{
+txt1 = LabelMgr.labelScreen("Yeah! You Pressed the [ Key", 400, 100, false, 30, "#FFAAFF");
+LabelMgr.setLabelShow(txt1, true);
+}
+
+
+if (kp == -1)
+{
+txt1 = LabelMgr.labelScreen("Yeah! You press the - Key", 400, 100, false, 30, "#FFAAFF");
+LabelMgr.setLabelShow(txt1, true);
+}
+
+if (kp == 1)
+{
+txt1 = LabelMgr.labelScreen("Yeah! You press the = Key", 400, 100, false, 30, "#FFAAFF");
+LabelMgr.setLabelShow(txt1, true);
+}
+
+if (kp == 7)
+{
+txt1 = LabelMgr.labelScreen("Yeah! You press the ] Key", 400, 100, false, 30, "#FFAAFF");
+LabelMgr.setLabelShow(txt1, true);
+}
+
+
+
+txt1 = LabelMgr.labelScreen("Now the script will end, goodbye!", 400, 140, false, 30, "#FFAAFF");
+LabelMgr.setLabelShow(txt1, true);
+
+
+ 
+core.wait(4);
+
+LabelMgr.deleteAllLabels();
+
+

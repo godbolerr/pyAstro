@@ -1,0 +1,59 @@
+// Author: Qam1
+// Name: Press the A Key - Keypress Example 1 
+// License: Public Domain
+// Description: Simple scrtpt to show you how to use a key press in scripts, It just waits until you Press the A key
+// Version: 1.0
+// 
+// Made on Stellarium 21.1
+
+
+LabelMgr.deleteAllLabels();
+
+
+txt1 = LabelMgr.labelScreen("Hello Universe!", 400, 10, false, 30, "#00FFAA");
+LabelMgr.setLabelShow(txt1, true);
+
+
+txt1 = LabelMgr.labelScreen("Press the A Key to end this script", 400, 40, false, 25, "#FF00AA");
+LabelMgr.setLabelShow(txt1, true);
+
+ 
+// Keypress
+
+
+kp = 0
+oa = LandscapeMgr.getFlagAtmosphere();
+
+
+while (kp == 0)
+{
+ca = LandscapeMgr.getFlagAtmosphere();
+core.wait(0.05); // This is needed in Stellarium version 1.0
+
+if (ca != oa)
+{
+kp = 1
+}
+
+
+}
+
+
+LandscapeMgr.setFlagAtmosphere(oa);
+
+// End Keypress
+
+
+txt1 = LabelMgr.labelScreen("Yeah! You Pressed the A Key", 400, 100, false, 30, "#FFAAFF");
+LabelMgr.setLabelShow(txt1, true);
+
+txt1 = LabelMgr.labelScreen("Now the script will end, goodbye!", 400, 140, false, 30, "#FFAAFF");
+LabelMgr.setLabelShow(txt1, true);
+
+
+ 
+core.wait(4);
+
+LabelMgr.deleteAllLabels();
+
+

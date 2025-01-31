@@ -1,0 +1,43 @@
+//  vim: ft=javascript
+//
+//  ..\..\runScript.bat moveToAltAzi.ssc
+//
+
+
+// Go to Irchelturm
+core.setObserverLocation(
+   8 + 36/60 + 25.85/60/60, // longitude
+  47 + 32/60 + 21.48/60/60, // latitude
+   0                      , // Altitude
+   0                        // Duration
+);
+
+
+core.setDeltaTAlgorithm('WithoutCorrection');
+
+core.setDate(
+  '2014-01-04T05:15:00',
+  'local'              , // or 'utc'
+   true                  // enable Delta T correction
+);
+
+
+// Why is this even necessary?
+//    2020-09-23 / Version 0.20 (not necessary anymore?)
+// core.wait(0.01);
+
+// Stop time
+core.setTimeRate(0.0);
+
+core.moveToAltAzi(
+          //
+          // Look at Saturn.
+          // The planet is
+    11.1, //    Approx 11 degrees above the horizon, and
+   128.0, //    almost in South-East.
+     0.0  // Don't loose time, move immediatly.
+);
+
+StelMovementMgr.zoomTo(25.0);
+
+GridLinesMgr.setFlagAzimuthalGrid(true);

@@ -1,0 +1,30 @@
+var cameras = [
+    { name: "Sun",     from: "Earth",  fov: 40   , wait: 2, constellations: true },
+    { name: "Moon",    from: "Earth",  fov: 1    , wait: 1, z: 1, spinWait: 2 },
+    { name: "Mars",    from: "Earth",  fov:   .01, wait: 3 },
+    { name: "Phobos",  from: "Deimos", fov: 40   , wait: 5 },
+    { name: "Jupiter", from: "Earth",  fov:   .1 , wait: 3 },
+    { name: "Io",      from: "Europa", fov: 40   , wait: 5 },
+    { name: "Saturn",  from: "Earth",  fov:   .05, wait: 3 },
+    { name: "Mimas",   from: "Rhea",   fov: 40   , wait: 5, constellations: true },
+];
+
+core.            setRealTime();
+core.            setGuiVisible(false);
+core.            setMinFps(1);
+SolarSystem.     setFlagLabels(true);
+SolarSystem.     setLabelsAmount(1);
+StarMgr.         setLabelsAmount(0);
+StelMovementMgr. setEquatorialMount(true);
+GridLinesMgr.    setFlagEclipticLine(true);
+
+
+ConstellationMgr.setFlagBoundaries(false);
+
+  var camera = cameras[0];
+
+  ConstellationMgr.setFlagLines(camera.constellations);
+
+ core.setObserverLocation(43.65, 79.38, 100, 0, "", camera.from);
+
+

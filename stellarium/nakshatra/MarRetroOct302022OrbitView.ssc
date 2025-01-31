@@ -1,0 +1,61 @@
+
+StelMovementMgr.setEquatorialMount(true);
+LabelMgr.deleteAllLabels();
+MarkerMgr.deleteAllMarkers();
+core.wait(1);
+
+core.moveToAltAzi(24, 90, 3);
+core.wait(1);
+
+// Set Date Here
+
+//core.setDate("1967-03-08T22:00:00");
+
+core.setDate("1973-09-19T22:00:00");
+
+
+core.wait(1);
+
+d = core.getDate().substring(0,10);
+d = d + "T12:00:00"
+
+
+var startDateLabel = LabelMgr.labelScreen("Start date : " + d, 550, 20 , false, 18, color);
+
+core.setDate(d, "local");
+core.wait(0.1);
+
+core.setDate("-77  days");
+
+d = core.getDate().substring(0,10);
+
+
+
+ LabelMgr.setLabelShow(startDateLabel, true);
+core.wait(3);
+
+
+LandscapeMgr.setFlagLandscape(false);
+LandscapeMgr.setFlagAtmosphere(false);
+core.setGuiVisible(false);
+
+StelMovementMgr.zoomTo(60, 1);
+
+core.selectObjectByName("Mars", false);
+SolarSystem.setFlagIsolatedTrails(true);
+SolarSystem.setFlagTrails(true);
+StelMovementMgr.setFlagLockEquPos(true);
+
+
+var color = "#ff9900";
+
+for (i=0; i<200; i++)
+{
+    core.setDate("+ 1 days");
+
+     core.wait(0.1);
+}
+
+core.setGuiVisible(true);
+
+
